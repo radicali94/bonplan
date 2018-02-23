@@ -6,6 +6,7 @@
 package iService;
 
 import entite.BonPlan;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -17,7 +18,9 @@ public interface iBonPlan {
     
     public void ajouterBonPlan(BonPlan bp);
     public void supprimerBonPlan(BonPlan bp);
-    public List<BonPlan>selectBonPlans();
+    public List<BonPlan> selectBonPlans();
+    public List<BonPlan> selectBonPlansByID(int idu);
+    public BonPlan selectBonPlan(int id_bp)throws SQLException;
     public void modifierBonPlan(BonPlan bp,int id_bp);
     
 }

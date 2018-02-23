@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane1" maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SignUpController">
+   <children>
+      <ImageView fitHeight="166.0" fitWidth="279.0" layoutX="129.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Content/PinGO.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="nom" focusColor="#09b6bc" labelFloat="true" layoutX="124.0" layoutY="176.0" maxWidth="232.0" minWidth="232.0" prefHeight="40.0" prefWidth="232.0" promptText="Nom" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: #97d6ee;" unFocusColor="#97d6ee">
+         <effect>
+            <Glow />
+         </effect></JFXTextField>
+      <JFXButton fx:id="annuler" buttonType="RAISED" cancelButton="true" layoutX="480.0" layoutY="486.0" onAction="#makeAnnuler" prefHeight="32.0" prefWidth="86.0" ripplerFill="WHITE" style="-fx-background-color: #96999a;" text="Annuler" textAlignment="CENTER" textFill="WHITE" />
+      <JFXButton fx:id="valider" buttonType="RAISED" defaultButton="true" layoutX="330.0" layoutY="486.0" onAction="#makeValider" prefHeight="32.0" prefWidth="86.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Valider" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <Glow />
+         </effect></JFXButton>
+      <JFXButton fx:id="btnX" layoutX="856.0" layoutY="-3.0" minWidth="46.0" onAction="#close" opacity="0.84" prefHeight="32.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #ea3939;" text="X" textAlignment="CENTER" textFill="WHITE" />
+      <JFXTextField fx:id="prenom" focusColor="#09b6bc" labelFloat="true" layoutX="124.0" layoutY="246.0" maxWidth="232.0" minWidth="232.0" prefHeight="40.0" prefWidth="232.0" promptText="Prénom" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: #97d6ee;" unFocusColor="#97d6ee">
+         <effect>
+            <Glow />
+         </effect></JFXTextField>
+      <JFXTextField fx:id="username" focusColor="#09b6bc" labelFloat="true" layoutX="124.0" layoutY="316.0" maxWidth="232.0" minWidth="232.0" prefHeight="40.0" prefWidth="232.0" promptText="Username" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: #97d6ee;" unFocusColor="#97d6ee">
+         <effect>
+            <Glow />
+         </effect></JFXTextField>
+      <JFXTextField fx:id="email" focusColor="#09b6bc" labelFloat="true" layoutX="124.0" layoutY="386.0" maxWidth="232.0" minWidth="232.0" prefHeight="40.0" prefWidth="232.0" promptText="\@ e-mail" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: #97d6ee;" unFocusColor="#97d6ee">
+         <effect>
+            <Glow />
+         </effect></JFXTextField>
+      <JFXPasswordField fx:id="pass" focusColor="#09b6bc" labelFloat="true" layoutX="531.0" layoutY="175.0" maxWidth="232.0" minWidth="214.0" prefHeight="40.0" prefWidth="232.0" promptText="Mot de passe" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: #97d6ee;" unFocusColor="#97d6ee">
+         <effect>
+            <Glow />
+         </effect>
+      </JFXPasswordField>
+      <JFXPasswordField fx:id="pass1" focusColor="#09b6bc" labelFloat="true" layoutX="531.0" layoutY="245.0" maxWidth="232.0" minWidth="214.0" prefHeight="40.0" prefWidth="232.0" promptText="Confirmer mot de passe" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: #97d6ee;" unFocusColor="#97d6ee">
+         <effect>
+            <Glow />
+         </effect>
+      </JFXPasswordField>
+   </children>
+</AnchorPane>

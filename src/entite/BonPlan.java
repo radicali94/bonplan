@@ -5,19 +5,33 @@
  */
 package entite;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import java.util.Date;
+
 /**
  *
  * @author Radhi
  */
-public class BonPlan {
+public class BonPlan extends RecursiveTreeObject<BonPlan>{
     private int id_bp;
     private String nom_bp;
     private String type_bp;
     private String desc_bp;
     private String img_bp;
-    private String lieu_bp;
+    private int lieu_bp;
     private double prix_bp;
     private int id_user;
+    
+    private java.util.Date utilDate = new java.util.Date();
+    private java.sql.Date date_bp = new java.sql.Date(utilDate.getTime());
+
+    public Date getDate_bp() {
+        return date_bp;
+    }
+
+    public void setDate_bp(java.sql.Date date_bp) {
+        this.date_bp = date_bp;
+    }
 
     public int getId_bp() {
         return id_bp;
@@ -54,16 +68,17 @@ public class BonPlan {
     public String getImg_bp() {
         return img_bp;
     }
+    
 
     public void setImg_bp(String img_bp) {
         this.img_bp = img_bp;
     }
 
-    public String getLieu_bp() {
+    public int getLieu_bp() {
         return lieu_bp;
     }
 
-    public void setLieu_bp(String lieu_bp) {
+    public void setLieu_bp(int lieu_bp) {
         this.lieu_bp = lieu_bp;
     }
 
@@ -85,9 +100,21 @@ public class BonPlan {
 
     
     
-    public BonPlan(int id_bp,String nom_bp, String type_bp,String desc_bp, String img_bp,String lieu_bp, double prix_bp, int id_user)
+    public BonPlan(int id_bp,String nom_bp, String type_bp,String desc_bp, String img_bp,int lieu_bp, double prix_bp, int id_user)
     {
         this.id_bp=id_bp;
+        this.nom_bp=nom_bp;
+        this.type_bp=type_bp;
+        this.desc_bp=desc_bp;
+        this.img_bp=img_bp;
+        this.lieu_bp=lieu_bp;
+        this.prix_bp=prix_bp;
+        this.id_user=id_user;
+  
+    }
+    
+    public BonPlan(String nom_bp, String type_bp,String desc_bp, String img_bp,int lieu_bp, double prix_bp, int id_user)
+    {
         this.nom_bp=nom_bp;
         this.type_bp=type_bp;
         this.desc_bp=desc_bp;
@@ -106,7 +133,7 @@ public class BonPlan {
     public String toString()
     {
         return "\nBon Plan:\nID: "+id_bp+"\nNom: "+nom_bp+"\nType: "+type_bp+"\nDesc: "+desc_bp+"\nImage: "+img_bp
-                +"\nLieu: "+lieu_bp+"\nPrix: "+prix_bp+"\nUserID: "+id_user+"\n";
+                +"\nLieu: "+lieu_bp+"\nPrix: "+prix_bp+"\nUserID: "+id_user+"\nDate: "+date_bp+"\n";
     }
     
 }

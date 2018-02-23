@@ -6,6 +6,7 @@
 package test;
 
 import entite.BonPlan;
+import entite.Position;
 import entite.User;
 import java.io.IOException;
 import java.sql.Connection;
@@ -19,20 +20,21 @@ import java.util.logging.Logger;
 import service.BonPlanService;
 import java.util.Scanner;
 import javafx.collections.ObservableList;
+import service.PositionService;
 import service.UserService;
 
 /**
  *
  * @author Radhi
  */
-public class test {
+public class testPosition {
 
     /**
      * @param args the command line arguments
      * @throws java.io.IOException
      */
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
         
         
         try 
@@ -53,22 +55,18 @@ public class test {
         
         Scanner sc = new Scanner(System.in);
         
-        BonPlan bp1 = new BonPlan(1,"nom1","type1","desc1","img1",5,10.0d,1);
-        BonPlan bp2 = new BonPlan(2,"nom5","type2","desc2","img2",6,20.0d,1);
+        Position pos1 = new Position(1,"nom_pos1", 11.111, 11.111);
+        Position pos2 = new Position(2,"nom_pos2", 22.222, 22.222);
        
        
         
-        BonPlanService bonPlanService = new BonPlanService(bp1);
+        PositionService ps = new PositionService(pos1);
         
-        //Test conversion
-        java.util.Date utilDate = new java.util.Date();
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-        System.out.println("utilDate:" + utilDate);
-        System.out.println("sqlDate:" + sqlDate);
+        
         
             
             
-            System.out.println("\n1.Ajouter\n2.Afficher\n3.Supp\n4.Modifier\n5.Quitter");
+            System.out.println("\n1.Ajouter\n2.Afficher\n3.Modifier\n4.Quitter");
             //entree = System.in.read();
               int entree = sc.nextInt();
             
@@ -76,30 +74,28 @@ public class test {
             {
               
               case 1:
-                bonPlanService.ajouterBonPlan(bp1);
-                bonPlanService.ajouterBonPlan(bp2);
+                ps.ajouterPosition(pos1);
+                ps.ajouterPosition(pos2);
                 
                 break;
-              case 2:
                 
-                  ObservableList liste = (ObservableList)  bonPlanService.selectBonPlans();
-                System.out.println(liste.toString());
+              case 2:
+                System.out.println(ps.selectPosition(1).toString());
+                System.out.println(ps.selectPosition(2).toString());
+                
                 break;
               
               case 3:
-                  bonPlanService.supprimerBonPlan(bp1);
-                  bonPlanService.supprimerBonPlan(bp2);
-                break;
+                  ps.modifierPosition(pos1, 1);
+                  
+                  break;
                   
               case 4:
-                  bonPlanService.modifierBonPlan(bp1,35);
                   
+                  System.exit(0);
                   
                   break;
-                  
-              case 5:
-                  System.exit(10);
-                  break;
+               
             }
         
         
