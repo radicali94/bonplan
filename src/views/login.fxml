@@ -4,78 +4,123 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginPane" maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
+<AnchorPane fx:id="loginPane" cache="true" cacheHint="SPEED" maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
    <children>
-      <ImageView fitHeight="235.0" fitWidth="313.0" layoutX="56.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+      <ImageView fitHeight="223.0" fitWidth="223.0" layoutX="120.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" smooth="false">
          <image>
-            <Image url="@../Content/PinGO.png" />
+            <Image url="@../Content/forsaLOGO.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="username" focusColor="#09b6bc" labelFloat="true" layoutX="556.0" layoutY="217.0" maxWidth="232.0" minWidth="232.0" prefHeight="40.0" prefWidth="232.0" promptText="Username" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: #97d6ee;" unFocusColor="#97d6ee">
+      <JFXTextField fx:id="username" focusColor="#663399" labelFloat="true" layoutX="566.0" layoutY="257.0" maxWidth="232.0" minWidth="232.0" prefHeight="40.0" prefWidth="232.0" promptText="Username" unFocusColor="#aa5aff">
          <effect>
             <Glow level="0.72" />
          </effect></JFXTextField>
-      <JFXButton fx:id="signUp" buttonType="RAISED" layoutX="599.0" layoutY="520.0" onAction="#makeSignUp" prefHeight="40.0" prefWidth="164.0" ripplerFill="WHITE" style="-fx-background-color: #757373;" text="Sign up" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Titillium Web Regular" size="18.0" />
-         </font></JFXButton>
-      <JFXPasswordField fx:id="pass" focusColor="#09b6bc" labelFloat="true" layoutX="556.0" layoutY="307.0" maxWidth="232.0" minWidth="214.0" prefHeight="40.0" prefWidth="232.0" promptText="Password" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: #97d6ee;" unFocusColor="#97d6ee">
+      <JFXPasswordField fx:id="pass" focusColor="#663399" labelFloat="true" layoutX="566.0" layoutY="347.0" maxWidth="232.0" minWidth="214.0" prefHeight="40.0" prefWidth="232.0" promptText="Password" unFocusColor="#aa5aff">
          <effect>
             <Glow level="0.72" />
          </effect></JFXPasswordField>
-      <JFXButton fx:id="login" buttonType="RAISED" defaultButton="true" layoutX="599.0" layoutY="427.0" onAction="#makeLogin" prefHeight="41.0" prefWidth="164.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Login" textAlignment="CENTER" textFill="WHITE">
+      <JFXButton fx:id="login" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="599.0" layoutY="447.0" onAction="#makeLogin" prefHeight="41.0" prefWidth="164.0" ripplerFill="WHITE" style="-fx-background-color: #663399;" text="Login" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Titillium Web SemiBold" size="18.0" />
          </font>
          <effect>
             <Glow />
-         </effect></JFXButton>
-      <JFXButton fx:id="btnX" layoutX="856.0" layoutY="-3.0" minWidth="46.0" onAction="#close" opacity="0.84" prefHeight="32.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #00111111;" text="X" textAlignment="CENTER" textFill="WHITE" />
-      <JFXCheckBox checkedColor="#2196f3" layoutX="567.0" layoutY="382.0" text="Remember me" textFill="#2196f3">
+         </effect>
+         <graphic>
+            <HBox prefHeight="45.0" prefWidth="138.0">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="USER_CIRCLE" size="35" wrappingWidth="54.0" />
+                  <Label prefHeight="44.0" prefWidth="95.0" text="Login" textFill="#fcfcfc">
+                     <font>
+                        <Font name="Roboto Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </graphic></JFXButton>
+      <JFXButton fx:id="signUp" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="599.0" layoutY="520.0" onAction="#makeSignUp" prefHeight="40.0" prefWidth="164.0" ripplerFill="WHITE" style="-fx-background-color: #757373;" text="Sign up" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Titillium Web Regular" size="18.0" />
+         </font>
+         <graphic>
+            <HBox prefHeight="43.0" prefWidth="140.0">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE" size="35" wrappingWidth="49.99993896484375" />
+                  <Label prefHeight="40.0" prefWidth="101.0" text="Sign up" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </graphic></JFXButton>
+      <JFXButton fx:id="btnX" layoutX="856.0" layoutY="-3.0" minWidth="46.0" onAction="#close" prefHeight="32.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #00111111;" text="X" textAlignment="CENTER" textFill="WHITE" />
+      <JFXCheckBox checkedColor="#663399" layoutX="567.0" layoutY="412.0" text="Remember me" textFill="#663399" unCheckedColor="#aa5aff">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXCheckBox>
-      <JFXButton layoutX="692.0" layoutY="379.0" text="Forgot password" textFill="#2196f3" underline="true" />
-      <Separator layoutX="704.0" layoutY="494.0" prefHeight="0.0" prefWidth="87.0" />
-      <Label layoutX="672.0" layoutY="483.0" text="OR" textFill="#b2afaf">
+      <JFXButton layoutX="692.0" layoutY="409.0" text="Forgot password" textFill="#663399" underline="true" />
+      <Separator layoutX="704.0" layoutY="504.0" prefHeight="0.0" prefWidth="87.0" />
+      <Label layoutX="672.0" layoutY="493.0" text="OR" textFill="#b2afaf">
          <font>
             <Font name="Titillium Web Regular" size="15.0" />
          </font></Label>
-      <Separator layoutX="574.0" layoutY="494.0" prefHeight="0.0" prefWidth="87.0" />
-      <ImageView fitHeight="134.0" fitWidth="200.0" layoutX="592.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+      <Separator layoutX="574.0" layoutY="504.0" prefHeight="0.0" prefWidth="87.0" />
+      <ImageView fitHeight="90.0" fitWidth="120.0" layoutX="621.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Content/usericon.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="172.0" fitWidth="229.0" layoutX="98.0" layoutY="415.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-         <image>
-            <Image url="@../Content/city.png" />
-         </image>
-      </ImageView>
-      <JFXButton fx:id="login1" buttonType="RAISED" layoutX="78.0" layoutY="262.0" onAction="#makeLogin" prefHeight="41.0" prefWidth="270.0" ripplerFill="WHITE" style="-fx-background-color: #3b5998;" text="Connect with Facebook" textAlignment="CENTER" textFill="WHITE">
+      <JFXButton fx:id="login1" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="98.0" layoutY="382.0" onAction="#makeLogin" prefHeight="47.0" prefWidth="281.0" ripplerFill="WHITE" style="-fx-background-color: #3b5998;" text="Connect with Facebook" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="Titillium Web SemiBold" size="18.0" />
+            <Font name="Roboto Bold" size="18.0" />
          </font>
          <effect>
             <Glow />
          </effect>
+         <graphic>
+            <HBox prefHeight="35.0" prefWidth="275.0">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="FACEBOOK_OFFICIAL" size="35" wrappingWidth="60.666656494140625" />
+                  <Label prefHeight="35.0" prefWidth="208.0" text="Connect with Facebook" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </graphic>
       </JFXButton>
-      <JFXButton fx:id="login11" buttonType="RAISED" layoutX="78.0" layoutY="332.0" onAction="#makeLogin" prefHeight="41.0" prefWidth="270.0" ripplerFill="WHITE" style="-fx-background-color: #d34836;" text="Connect with Google+" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Titillium Web SemiBold" size="18.0" />
-         </font>
+      <JFXButton fx:id="login11" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="98.0" layoutY="452.0" onAction="#makeLogin" prefHeight="47.0" prefWidth="281.0" ripplerFill="WHITE" style="-fx-background-color: #d34836;" text="Connect with Google+" textAlignment="CENTER" textFill="WHITE">
          <effect>
             <Glow />
          </effect>
+         <font>
+            <Font name="Roboto Bold" size="18.0" />
+         </font>
+         <graphic>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="GOOGLE_PLUS" size="35" wrappingWidth="61.66667175292969" />
+                  <Label prefHeight="29.0" prefWidth="190.0" text="Connect with Google+" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </graphic>
       </JFXButton>
    </children>
 </AnchorPane>

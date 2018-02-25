@@ -17,7 +17,7 @@
 
 .tree-table-row-cell {
     -fx-border-color: #eceff1;
-    -fx-border-width: 3;
+    -fx-border-width: 1;
     -fx-background-color: white;
     -fx-table-cell-border-color: gray; 
     -fx-border-radius: 5 5 5 5;
@@ -29,7 +29,7 @@
 }
 
 .tree-table-view .tree-table-row-cell .tree-table-cell{
-    -fx-font: 14px "Roboto";
+    -fx-font: 12px "Roboto";
     -fx-wrap-text:true;
     -fx-font-weight:bold;
     -fx-text-fill:  #494747;

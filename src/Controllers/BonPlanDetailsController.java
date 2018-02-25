@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.GMapMouseEvent;
@@ -40,8 +41,10 @@ import entite.Evaluation;
 import entite.Position;
 import entite.User;
 import java.io.IOException;
+import static java.lang.System.in;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.logging.Level;
@@ -71,6 +74,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import jdk.nashorn.api.scripting.JSObject;
+import jdk.nashorn.internal.ir.BreakNode;
 import org.controlsfx.control.Rating;
 import service.BonPlanService;
 import service.EvaluationService;
@@ -147,11 +151,11 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/bonPlanAdd.fxml"));
         Parent root = loader.load();
-        //root.setId("pane");
+        root.setId("pane");
         
         Scene scene1 = new Scene(root);
         stage.setScene(scene1);
-        //scene1.getStylesheets().addAll(this.getClass().getResource("/Content/style.css").toExternalForm());
+        scene1.getStylesheets().addAll(this.getClass().getResource("/Content/style.css").toExternalForm());
         stage.show();
     }
 
@@ -184,11 +188,41 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        hamburger();
         rating.ratingProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            comm.setDisable(false);
+            btnComment.setDisable(false);
             rateValue = newValue.floatValue();
-            System.out.println("pppppppp\n"+newValue);
-            System.out.println("pppppppp\n"+rateValue);
         });
+        
+        int idbp1 = BonPlanController.getIdBP();
+        int idusr1 = LoginController.getIdCnx();
+        
+        
+        
+        Evaluation eval2 = new Evaluation();
+        EvaluationService evals2 = new EvaluationService(eval2);
+        
+        try {
+            eval2 = evals2.selectEvalByIDuserBP(idusr1, idbp1);
+        } catch (SQLException ex) {
+            Logger.getLogger(BonPlanDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("rrrrrrrrrrrrrrrrr "+eval2.toString());
+        
+        
+        
+        if(eval2.getId_user()!=0)
+        {
+            
+            btnComment.setText("Réévaluer");
+            
+        }
+        else
+        {
+            btnComment.setText("Evaluer");
+        }
+        
         
         
         mapView.addMapInitializedListener(this);
@@ -212,11 +246,11 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
          
                  
         try {
-            int idbp1 = BonPlanController.getIdBP();
-            System.out.println("ID du bon plan"+idbp1);
+            int idbp0 = BonPlanController.getIdBP();
+            System.out.println("ID du bon plan"+idbp0);
             BonPlan bp1 = new BonPlan();
             BonPlanService bps1 = new BonPlanService(bp1);
-            bp1 = bps1.selectBonPlan(idbp1);
+            bp1 = bps1.selectBonPlan(idbp0);
             
             User u1 = new User();
             UserService us1 = new UserService(u1);
@@ -339,17 +373,38 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
     @FXML
     private void makeComment(ActionEvent event) throws SQLException {
         
-        User u = new User();
-        UserService us = new UserService(u);
-        u=us.selectUser(LoginController.getIdCnx());
-        
-        
-        System.out.println("pppppppp\n"+rateValue);
+        int idusr1 = LoginController.getIdCnx();
         int idbp1 = BonPlanController.getIdBP();
         
-        Evaluation eval = new Evaluation(0, rateValue, comm.getText(), idbp1, 0, 0, u.getId());
+        Evaluation eval = new Evaluation(0, rateValue, comm.getText(), idbp1, 0, 0, LoginController.getIdCnx());
         EvaluationService evals = new EvaluationService(eval);
-        evals.ajouterEval(eval);
+        
+        Evaluation eval2 = new Evaluation();
+        EvaluationService evals2 = new EvaluationService(eval2);
+        eval2 = evals2.selectEvalByIDuserBP(idusr1, idbp1);
+        System.out.println(eval2.getId_user());
+        if(eval2.getId_user()!= 0)
+        {
+            
+            evals2.modifierEval(eval, eval2.getId_eval());
+            afficher();
+            comm.clear();
+            comm.setDisable(true);
+            btnComment.setDisable(true);
+            
+        }
+        else
+        {
+            evals.ajouterEval(eval);
+            afficher();
+            btnComment.setText("Réévaluer");
+            comm.clear();
+            comm.setDisable(true);
+            btnComment.setDisable(true);
+            
+        }
+        
+        
         
     }
     
@@ -358,17 +413,17 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
         
         
         JFXTreeTableColumn<Evaluation,Image> Note = new JFXTreeTableColumn<>("Note");
-        Note.setPrefWidth(150);
+        Note.setPrefWidth(120);
         Note.setCellValueFactory((TreeTableColumn.CellDataFeatures<Evaluation, Image> param) ->  
                 new SimpleObjectProperty(new Image("/Content/rating"+(int)(param.getValue().getValue().getVal_eval())+".png")));
-         //"+((int)(param.getValue().getValue().getVal_eval()))+"
+        
         JFXTreeTableColumn<Evaluation,String> Comm = new JFXTreeTableColumn<>("Commentaire");
-        Comm.setPrefWidth(150);
+        Comm.setPrefWidth(210);
         Comm.setCellValueFactory((TreeTableColumn.CellDataFeatures<Evaluation, String> param) ->  
                 new SimpleStringProperty(param.getValue().getValue().getComment_eval()));
         
         JFXTreeTableColumn<Evaluation,String> Nom = new JFXTreeTableColumn<>("User");
-        Nom.setPrefWidth(100);
+        Nom.setPrefWidth(90);
         Nom.setCellValueFactory((TreeTableColumn.CellDataFeatures<Evaluation, String> param) -> {
             User u = new User();
             UserService us = new UserService(u);
@@ -407,7 +462,7 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
         private final Tooltip tooltip = new Tooltip(); 
 
         { 
-            imageView1.setFitHeight(20); 
+            imageView1.setFitHeight(30); 
             imageView1.setPreserveRatio(true); 
             imageView1.setSmooth(true); 
             tooltip.setText(null); 
@@ -433,10 +488,11 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
         
        
         
-        
+        treeview.getColumns().clear();
         treeview.getColumns().addAll(Nom,Comm,Note);
         treeview.setRoot(root);
         treeview.setShowRoot(false);
+        treeview.setFixedCellSize(90.0);
         
         search.textProperty().addListener(new ChangeListener<String>(){
              @Override
@@ -453,6 +509,47 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
             
         });
         
+    }
+    
+    private void hamburger()
+    {
+        try {
+            AnchorPane box = FXMLLoader.load(getClass().getResource("/views/drawerContent.fxml"));
+            drawer.setSidePane(box);
+            
+            
+            HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(ham1);
+            
+            pane1.addEventHandler(MouseEvent.MOUSE_PRESSED, e1->{
+                
+                if(drawer.isShown())
+                {
+                    transition.setRate(-1);
+                    transition.play();
+                    drawer.close();
+                }
+                });
+            
+            ham1.addEventHandler(MouseEvent.MOUSE_PRESSED, (e)->{
+                transition.setRate(transition.getRate()*(-1));
+                transition.play();
+                
+                
+                
+                if(drawer.isShown())
+                {
+                    transition.setRate(-1);
+                    drawer.close();
+                }
+                else
+                {
+                    transition.setRate(1);
+                    drawer.open();
+                }
+            });
+        } catch (IOException ex) {
+            System.out.println("Erreur hamburger!");
+        }
     }
 
 }

@@ -53,6 +53,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
@@ -98,11 +99,11 @@ public class BonPlanController extends ListView<String> implements Initializable
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/bonPlanAdd.fxml"));
         Parent root = loader.load();
-        //root.setId("pane");
+        root.setId("pane");
         
         Scene scene1 = new Scene(root);
         stage.setScene(scene1);
-        //scene1.getStylesheets().addAll(this.getClass().getResource("/Content/style.css").toExternalForm());
+        scene1.getStylesheets().addAll(this.getClass().getResource("/Content/style.css").toExternalForm());
         stage.show();
     }
 
@@ -193,7 +194,7 @@ public class BonPlanController extends ListView<String> implements Initializable
         
         
         JFXTreeTableColumn<BonPlan,Image> Image = new JFXTreeTableColumn<>("");
-        Image.setPrefWidth(400);
+        Image.setPrefWidth(200);
         Image.setCellValueFactory((TreeTableColumn.CellDataFeatures<BonPlan, Image> param) ->  
                 new SimpleObjectProperty(new Image(param.getValue().getValue().getImg_bp())));
         
@@ -203,14 +204,14 @@ public class BonPlanController extends ListView<String> implements Initializable
                 new SimpleStringProperty(param.getValue().getValue().getNom_bp()));
         
         JFXTreeTableColumn<BonPlan,String> Type = new JFXTreeTableColumn<>("Type");
-        Type.setPrefWidth(150);
+        Type.setPrefWidth(0);
         Type.setCellValueFactory((TreeTableColumn.CellDataFeatures<BonPlan, String> param) ->  
                 new SimpleStringProperty(param.getValue().getValue().getType_bp()));
         
-        JFXTreeTableColumn<BonPlan,String> Lieu = new JFXTreeTableColumn<>("Lieu");
-        Lieu.setPrefWidth(150);
-        Lieu.setCellValueFactory((TreeTableColumn.CellDataFeatures<BonPlan, String> param) ->  
-                new SimpleStringProperty(Integer.toString(param.getValue().getValue().getLieu_bp())));
+        JFXTreeTableColumn<BonPlan,String> Date = new JFXTreeTableColumn<>("Date");
+        Date.setPrefWidth(100);
+        Date.setCellValueFactory((TreeTableColumn.CellDataFeatures<BonPlan, String> param) ->  
+                new SimpleStringProperty((param.getValue().getValue().getDate_bp().toString())));
         
         
         
@@ -247,11 +248,14 @@ public class BonPlanController extends ListView<String> implements Initializable
         private final Tooltip tooltip = new Tooltip(); 
 
         { 
-            imageView1.setFitHeight(200); 
+            imageView1.setFitHeight(100);
+            imageView1.setFitWidth(100);
             imageView1.setPreserveRatio(true); 
             imageView1.setSmooth(true); 
             tooltip.setText(null); 
-            tooltip.setGraphic(imageView2); 
+            tooltip.setGraphic(imageView2);
+            imageView2.setFitHeight(300);
+            imageView2.setPreserveRatio(true);
         } 
 
         @Override 
@@ -273,9 +277,12 @@ public class BonPlanController extends ListView<String> implements Initializable
        
         
         
-        treeview.getColumns().addAll(Image,Nom,Type,Lieu);
+        treeview.getColumns().addAll(Nom,Type,Date,Image);
         treeview.setRoot(root);
         treeview.setShowRoot(false);
+        Type.setVisible(false);
+        
+        
         
         search.textProperty().addListener(new ChangeListener<String>(){
              @Override
@@ -321,7 +328,30 @@ public class BonPlanController extends ListView<String> implements Initializable
             AnchorPane box = FXMLLoader.load(getClass().getResource("/views/drawerContent.fxml"));
             drawer.setSidePane(box);
             
+            
             HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(ham1);
+            
+            
+                pane1.addEventHandler(MouseEvent.MOUSE_PRESSED, e1->{
+                
+                if(drawer.isShown())
+                {
+                    transition.setRate(-1);
+                    transition.play();
+                    drawer.close();
+                }
+                });
+                
+                treeview.addEventHandler(MouseEvent.MOUSE_PRESSED, e1->{
+                
+                if(drawer.isShown())
+                {
+                    transition.setRate(-1);
+                    transition.play();
+                    drawer.close();
+                }
+                });
+            
             
             ham1.addEventHandler(MouseEvent.MOUSE_PRESSED, (e)->{
                 transition.setRate(transition.getRate()*(-1));
@@ -366,11 +396,11 @@ public class BonPlanController extends ListView<String> implements Initializable
                     Stage stage = (Stage) btnX.getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/bonPlanDetails.fxml"));
                     Parent root = loader.load();
-                    //root.setId("pane");
+                    root.setId("pane");
                     
                     Scene scene1 = new Scene(root);
                     stage.setScene(scene1);
-                    //scene1.getStylesheets().addAll(this.getClass().getResource("/Content/style.css").toExternalForm());
+                    scene1.getStylesheets().addAll(this.getClass().getResource("/Content/style.css").toExternalForm());
                     stage.show();
                     
                 } catch (IOException ex) {
@@ -380,9 +410,5 @@ public class BonPlanController extends ListView<String> implements Initializable
             }
         });
     }
-    
-    
-
-    
     
 }

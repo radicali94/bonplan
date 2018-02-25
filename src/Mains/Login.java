@@ -32,7 +32,7 @@ public class Login extends Application
 
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().addAll(this.getClass().getResource("/Content/style.css").toExternalForm());
+        scene.getStylesheets().addAll(this.getClass().getResource("/Content/styleLogin.css").toExternalForm());
         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
         stage.setScene(scene);
         stage.show();

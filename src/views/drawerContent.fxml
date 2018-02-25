@@ -1,82 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DrawerContentController">
+<AnchorPane fx:id="box" cache="true" cacheHint="SPEED" maxHeight="600.0" maxWidth="250.0" minHeight="600.0" minWidth="250.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #494747;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DrawerContentController">
    <children>
       <ImageView fx:id="imgUser" fitHeight="146.0" fitWidth="252.0" focusTraversable="true" layoutX="51.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Content/usericon.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="btnBonsPlans" layoutX="-4.0" layoutY="286.0" onAction="#makeBonsPlans" prefHeight="50.0" prefWidth="259.0" text="Bons Plans">
-         <font>
-            <Font name="Titillium Web Regular" size="18.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect></JFXButton>
-      <JFXButton fx:id="btnEvents" layoutX="-4.0" layoutY="338.0" onAction="#makeEvents" prefHeight="50.0" prefWidth="259.0" text="Evénements">
-         <font>
-            <Font name="Titillium Web Regular" size="18.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect>
-      </JFXButton>
-      <JFXButton fx:id="btnExp" layoutX="-4.0" layoutY="390.0" onAction="#makeExp" prefHeight="50.0" prefWidth="259.0" text="Expériences">
-         <font>
-            <Font name="Titillium Web Regular" size="18.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect>
-      </JFXButton>
-      <JFXButton fx:id="btnBusiness" layoutX="-4.0" layoutY="442.0" onAction="#makeBusiness" prefHeight="50.0" prefWidth="259.0" text="Business">
-         <font>
-            <Font name="Titillium Web Regular" size="18.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect>
-      </JFXButton>
-      <JFXButton fx:id="btnCompte" layoutX="-4.0" layoutY="494.0" onAction="#makeCompte" prefHeight="50.0" prefWidth="259.0" text="Mon compte">
-         <font>
-            <Font name="Titillium Web Regular" size="18.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect>
-      </JFXButton>
-      <JFXButton fx:id="btnAccueil" layoutX="-4.0" layoutY="234.0" onAction="#makeAccueil" prefHeight="50.0" prefWidth="259.0" text="Accueil">
-         <font>
-            <Font name="Titillium Web Regular" size="18.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect>
-      </JFXButton>
-      <JFXButton fx:id="btnDisconnect" layoutX="-4.0" layoutY="546.0" onAction="#makeDisconnect" prefHeight="50.0" prefWidth="259.0" text="Déconnexion">
-         <font>
-            <Font name="Titillium Web Regular" size="18.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect>
-      </JFXButton>
-      <Label fx:id="labelUser" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="173.0" prefHeight="27.0" prefWidth="230.0">
+      <Label fx:id="labelUser" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="173.0" prefHeight="27.0" prefWidth="230.0" textFill="#e4dbdb">
          <font>
             <Font size="18.0" />
          </font>
-         <effect>
-            <DropShadow />
-         </effect>
       </Label>
+      <VBox layoutX="-1.0" layoutY="231.0" prefHeight="370.0" prefWidth="250.0" spacing="3.0">
+         <children>
+            <JFXButton fx:id="btnAccueil" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeAccueil" prefHeight="50.0" prefWidth="259.0" ripplerFill="#d6b2fc" style="-fx-background-color: #494747;" text="Button" textFill="#e4dbdb">
+               <font>
+                  <Font name="Roboto Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="38.0" prefWidth="167.0">
+                     <children>
+                        <FontAwesomeIconView fill="#e4dbdb" glyphName="HOME" size="30" wrappingWidth="39.0" />
+                        <Label prefHeight="38.0" prefWidth="132.0" text="Accueil" textFill="#e4dbdb">
+                           <font>
+                              <Font name="Roboto Bold" size="18.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnBonsPlans" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeBonsPlans" prefHeight="50.0" prefWidth="259.0" ripplerFill="#d6b2fc" style="-fx-background-color: #494747;" textFill="#e4dbdb">
+               <font>
+                  <Font name="Roboto Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="38.0" prefWidth="167.0">
+                     <children>
+                        <FontAwesomeIconView fill="#e4dbdb" glyphName="MAP_MARKER" size="30" wrappingWidth="39.0" />
+                        <Label prefHeight="38.0" prefWidth="132.0" text="Bons Plans" textFill="#e4dbdb">
+                           <font>
+                              <Font name="Roboto Bold" size="18.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnEvents" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeEvents" prefHeight="50.0" prefWidth="259.0" ripplerFill="#d6b2fc" style="-fx-background-color: #494747;" textFill="#e4dbdb">
+               <font>
+                  <Font name="Roboto Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="38.0" prefWidth="167.0">
+                     <children>
+                        <FontAwesomeIconView fill="#e4dbdb" glyphName="CALENDAR" size="30" wrappingWidth="39.0" />
+                        <Label prefHeight="38.0" prefWidth="132.0" text="Evénements" textFill="#e4dbdb">
+                           <font>
+                              <Font name="Roboto Bold" size="18.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnExp" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeExp" prefHeight="50.0" prefWidth="259.0" ripplerFill="#d6b2fc" style="-fx-background-color: #494747;" textFill="#e4dbdb">
+               <font>
+                  <Font name="Roboto Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="38.0" prefWidth="167.0">
+                     <children>
+                        <FontAwesomeIconView fill="#e4dbdb" glyphName="EYE" size="30" wrappingWidth="39.0" />
+                        <Label prefHeight="38.0" prefWidth="132.0" text="Expériences" textFill="#e4dbdb">
+                           <font>
+                              <Font name="Roboto Bold" size="18.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnBusiness" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeBusiness" prefHeight="50.0" prefWidth="259.0" ripplerFill="#d6b2fc" style="-fx-background-color: #494747;" textFill="#e4dbdb">
+               <font>
+                  <Font name="Roboto Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="38.0" prefWidth="167.0">
+                     <children>
+                        <FontAwesomeIconView fill="#e4dbdb" glyphName="BRIEFCASE" size="30" wrappingWidth="39.0" />
+                        <Label prefHeight="38.0" prefWidth="132.0" text="Business" textFill="#e4dbdb">
+                           <font>
+                              <Font name="Roboto Bold" size="18.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnCompte" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeCompte" prefHeight="50.0" prefWidth="259.0" ripplerFill="#d6b2fc" style="-fx-background-color: #494747;" textFill="#e4dbdb">
+               <font>
+                  <Font name="Roboto Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="38.0" prefWidth="167.0">
+                     <children>
+                        <FontAwesomeIconView fill="#e4dbdb" glyphName="COGS" size="30" wrappingWidth="39.0" />
+                        <Label prefHeight="38.0" prefWidth="132.0" text="Mon compte" textFill="#e4dbdb">
+                           <font>
+                              <Font name="Roboto Bold" size="18.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnDisconnect" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeDisconnect" prefHeight="50.0" prefWidth="259.0" ripplerFill="#d6b2fc" style="-fx-background-color: #494747;" textFill="#bf4b4b">
+               <font>
+                  <Font name="Roboto Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="38.0" prefWidth="167.0">
+                     <children>
+                        <FontAwesomeIconView fill="#bf4b4b" glyphName="POWER_OFF" size="30" wrappingWidth="39.0">
+                           <effect>
+                              <Glow level="0.88" />
+                           </effect>
+                        </FontAwesomeIconView>
+                        <Label prefHeight="38.0" prefWidth="132.0" text="Déconnexion" textFill="#bf4b4b">
+                           <font>
+                              <Font name="Roboto Bold" size="18.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

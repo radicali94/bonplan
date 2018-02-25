@@ -13,18 +13,16 @@
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.Rating?>
 
-<AnchorPane id="AnchorPane" fx:id="pane1" maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BonPlanDetailsController">
+<AnchorPane id="AnchorPane" fx:id="pane1" cache="true" cacheHint="SPEED" maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@../Content/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BonPlanDetailsController">
    <children>
-      <JFXTreeTableView fx:id="treeview" currentItemsCount="3" editable="true" layoutX="452.0" layoutY="253.0" prefHeight="198.0" prefWidth="436.0" style="-fx-background-color: transparent; -fx-tree-table-color: transparent; -fx-tree-table-row-color: transparent;" stylesheets="@../Content/style_1.css" tableMenuButtonVisible="true">
-         <effect>
-            <DropShadow />
-         </effect>
-      </JFXTreeTableView>
-      <JFXButton fx:id="btnX" layoutX="856.0" layoutY="-3.0" minWidth="46.0" onAction="#close" prefHeight="32.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #00111111;" text="X" textAlignment="CENTER" textFill="WHITE">
+      <JFXTreeTableView fx:id="treeview" cache="true" cacheHint="SPEED" currentItemsCount="3" layoutX="452.0" layoutY="250.0" prefHeight="181.0" prefWidth="436.0" showRoot="false" style="-fx-background-color: transparent; -fx-tree-table-color: transparent; -fx-tree-table-row-color: transparent;" stylesheets="@../Content/style_2.css" />
+      <JFXButton fx:id="btnX" cache="true" cacheHint="SPEED" layoutX="856.0" layoutY="-3.0" minWidth="46.0" onAction="#close" prefHeight="32.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #00111111;" text="X" textAlignment="CENTER" textFill="WHITE">
          <effect>
             <Glow />
          </effect>
@@ -32,102 +30,169 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnAddPlan" contentDisplay="GRAPHIC_ONLY" layoutX="271.0" layoutY="-2.0" onAction="#makeAddPlan" prefHeight="72.0" prefWidth="64.0">
-         <graphic>
-            <FontAwesomeIconView glyphName="PLUS" size="30" />
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="btnShowPlans" contentDisplay="GRAPHIC_ONLY" layoutX="355.0" layoutY="-2.0" onAction="#makeShowPlans" prefHeight="72.0" prefWidth="64.0">
-         <graphic>
-            <FontAwesomeIconView glyphName="LIST_ALT" size="30" />
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="btnMesPlans" contentDisplay="GRAPHIC_ONLY" layoutX="439.0" layoutY="-2.0" onAction="#makeMesPlans" prefHeight="72.0" prefWidth="64.0">
-         <graphic>
-            <FontAwesomeIconView glyphName="EDIT" size="30" />
-         </graphic>
-      </JFXButton>
-      <JFXTextField fx:id="search" focusColor="#09b6bc" labelFloat="true" layoutX="513.0" layoutY="18.0" maxWidth="232.0" minWidth="232.0" prefHeight="33.0" prefWidth="232.0" promptText="Search" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: #97d6ee;" unFocusColor="#97d6ee">
-         <effect>
-            <Glow level="0.72" />
-         </effect>
-      </JFXTextField>
-      <JFXDrawer layoutX="531.0" layoutY="746.0" />
-      <ImageView fx:id="ImageBP" fitHeight="246.0" fitWidth="426.0" layoutX="14.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+      <JFXDrawer cache="true" cacheHint="SPEED" layoutX="531.0" layoutY="746.0" />
+      <ImageView fx:id="ImageBP" cache="true" cacheHint="SPEED" fitHeight="211.0" fitWidth="387.0" layoutX="30.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <DropShadow />
          </effect>
       </ImageView>
-      <Label layoutX="449.0" layoutY="82.0" text="Nom:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="449.0" layoutY="129.0" text="Type:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="449.0" layoutY="177.0" text="Description:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="714.0" layoutY="132.0" text="Prix:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="labelNom" layoutX="499.0" layoutY="80.0" prefHeight="27.0" prefWidth="198.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="labelType" layoutX="499.0" layoutY="127.0" prefHeight="27.0" prefWidth="155.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="labelPrix" layoutX="756.0" layoutY="130.0" prefHeight="27.0" prefWidth="116.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Text fx:id="labelDesc" layoutX="452.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="434.00006733834743">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" layoutX="-1.0" layoutY="-1.0" maxHeight="600.0" maxWidth="250.0" minHeight="600.0" minWidth="46.0" prefHeight="600.0" prefWidth="46.0" />
-      <JFXHamburger fx:id="ham1" focusTraversable="true" layoutX="181.0" layoutY="-12.0" prefHeight="90.0" prefWidth="80.0" style="-fx-fill: white;">
-         <effect>
-            <Glow />
-         </effect>
-      </JFXHamburger>
-      <GoogleMapView fx:id="mapView" layoutX="11.0" layoutY="339.0" prefHeight="254.0" prefWidth="427.0">
+      <GoogleMapView fx:id="mapView" cache="true" cacheHint="SPEED" layoutX="11.0" layoutY="339.0" prefHeight="254.0" prefWidth="427.0">
          <effect>
             <DropShadow />
          </effect></GoogleMapView>
-      <JFXTextArea fx:id="comm" labelFloat="true" layoutX="450.0" layoutY="455.0" prefHeight="61.0" prefWidth="442.0" promptText="Votre commentaire" />
-      <JFXButton fx:id="btnComment" buttonType="RAISED" layoutX="768.0" layoutY="544.0" onAction="#makeComment" prefHeight="46.0" prefWidth="125.0" text="Commenter">
+      <JFXTextArea fx:id="comm" cache="true" cacheHint="SPEED" disable="true" focusColor="#663399" labelFloat="true" layoutX="450.0" layoutY="462.0" prefHeight="54.0" prefWidth="442.0" promptText="Votre commentaire" unFocusColor="#663399" />
+      <JFXButton fx:id="btnComment" buttonType="RAISED" cache="true" cacheHint="SPEED" defaultButton="true" disable="true" layoutX="768.0" layoutY="544.0" onAction="#makeComment" prefHeight="46.0" prefWidth="125.0" style="-fx-background-color: #663399;" text="Commenter" textFill="WHITE">
          <effect>
             <DropShadow />
          </effect>
+         <font>
+            <Font name="Roboto Bold" size="18.0" />
+         </font>
       </JFXButton>
-      <Rating fx:id="rating" layoutX="471.0" layoutY="544.0">
+      <Rating fx:id="rating" cache="true" cacheHint="SPEED" layoutX="471.0" layoutY="544.0" rating="1.0">
          <effect>
             <Glow />
          </effect>
       </Rating>
-      <Label layoutX="707.0" layoutY="84.0" text="par">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="labelUser1" layoutX="736.0" layoutY="80.0" prefHeight="27.0" prefWidth="155.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
+      <JFXTextField fx:id="search" cache="true" cacheHint="SPEED" focusColor="WHITE" labelFloat="true" layoutX="633.0" layoutY="16.0" maxWidth="232.0" minWidth="100.0" prefHeight="33.0" prefWidth="143.0" promptText="🔎  Search" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE">
+         <effect>
+            <DropShadow />
+         </effect>
+      </JFXTextField>
+      <HBox cache="true" cacheHint="SPEED" layoutX="247.0" layoutY="4.0" prefHeight="60.0" prefWidth="383.0">
+         <children>
+            <JFXButton fx:id="btnAddPlan" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeAddPlan" prefHeight="60.0" prefWidth="120.0">
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="52.0" prefWidth="92.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="35" wrappingWidth="34.5">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </FontAwesomeIconView>
+                        <Label prefHeight="54.0" prefWidth="48.0" text="Ajouter&#10;bon plan" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Bold" size="12.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnShowPlans" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeShowPlans" prefHeight="60.0" prefWidth="124.0">
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="35" wrappingWidth="46.0">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </FontAwesomeIconView>
+                        <Label text="Afficher&#10;bons plans" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Bold" size="12.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnMesPlans" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeMesPlans" prefHeight="60.0" prefWidth="125.0">
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="35" wrappingWidth="41.0">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </FontAwesomeIconView>
+                        <Label alignment="CENTER" text="Mes&#10;bons plans" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Bold" size="12.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+         </children>
+      </HBox>
+      <JFXDrawer fx:id="drawer" cache="true" cacheHint="SPEED" defaultDrawerSize="250.0" layoutX="-1.0" layoutY="-1.0" maxHeight="600.0" maxWidth="250.0" minHeight="600.0" minWidth="46.0" prefHeight="600.0" prefWidth="46.0" />
+      <JFXHamburger fx:id="ham1" cache="true" cacheHint="SPEED" focusTraversable="true" layoutX="180.0" layoutY="-12.0" prefHeight="90.0" prefWidth="80.0" stylesheets="@../Content/styleHamburger.css">
+         <effect>
+            <DropShadow />
+         </effect>
+      </JFXHamburger>
+      <VBox cache="true" cacheHint="SPEED" layoutX="447.0" layoutY="133.0" prefHeight="116.0" prefWidth="435.0">
+         <children>
+            <HBox prefHeight="5.0" prefWidth="435.0">
+               <children>
+                  <Label prefHeight="0.0" prefWidth="49.0" text="Nom:">
+                     <font>
+                        <Font name="Roboto Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelNom" prefHeight="0.0" prefWidth="198.0">
+                     <font>
+                        <Font name="Roboto Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="0.0" prefWidth="27.0" text="par">
+                     <font>
+                        <Font name="Roboto Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelUser1" prefHeight="0.0" prefWidth="155.0">
+                     <font>
+                        <Font name="Roboto Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="0.0" prefWidth="435.0">
+               <children>
+                  <Label prefHeight="0.0" prefWidth="44.0" text="Type:">
+                     <font>
+                        <Font name="Roboto Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelType" prefHeight="20.0" prefWidth="199.0">
+                     <font>
+                        <Font name="Roboto Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="0.0" prefWidth="37.0" text="Prix:">
+                     <font>
+                        <Font name="Roboto Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelPrix" prefHeight="5.0" prefWidth="116.0">
+                     <font>
+                        <Font name="Roboto Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label prefHeight="0.0" prefWidth="76.0" text="Description:">
+               <font>
+                  <Font name="Roboto Regular" size="14.0" />
+               </font>
+            </Label>
+            <Text fx:id="labelDesc" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="434.00006733834743">
+               <font>
+                  <Font name="Roboto Bold" size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
