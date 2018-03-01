@@ -24,5 +24,6 @@ public interface iEval {
     public Evaluation selectEval(int id_eval)throws SQLException;
     public Evaluation selectEvalByIDuserBP(int id_user,int idbp)throws SQLException;
     public void modifierEval(Evaluation eval,int id_eval);
-    
+    public Evaluation selectEvalByIDuserE(int id_user, int ide) throws SQLException;
+    public List<Evaluation> selectEvalsByIDE(int ide);
 }

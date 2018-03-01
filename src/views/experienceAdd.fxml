@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ExperienceAddController">
+   <children>
+      <AnchorPane fx:id="pane1" layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0">
+         <children>
+            <JFXButton fx:id="btnX" layoutX="856.0" layoutY="-3.0" minWidth="46.0" onAction="#close" prefHeight="32.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #00111111;" text="X" textAlignment="CENTER" textFill="WHITE">
+               <effect>
+                  <Glow />
+               </effect>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnAddExperience" contentDisplay="GRAPHIC_ONLY" layoutX="271.0" layoutY="-2.0" onAction="#makeAddExperience" prefHeight="72.0" prefWidth="64.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PLUS" size="30" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnShowExperiences" contentDisplay="GRAPHIC_ONLY" layoutX="355.0" layoutY="-2.0" onAction="#makeShowExperiences" prefHeight="72.0" prefWidth="64.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="LIST_ALT" size="30" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnMesExperiences" contentDisplay="GRAPHIC_ONLY" layoutX="439.0" layoutY="-2.0" onAction="#makeMesExperiences" prefHeight="72.0" prefWidth="64.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="EDIT" size="30" />
+               </graphic>
+            </JFXButton>
+            <JFXTextField fx:id="search" focusColor="#09b6bc" labelFloat="true" layoutX="513.0" layoutY="18.0" maxWidth="232.0" minWidth="232.0" prefHeight="33.0" prefWidth="232.0" promptText="Search" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: #97d6ee;" unFocusColor="#97d6ee">
+               <effect>
+                  <Glow level="0.72" />
+               </effect>
+            </JFXTextField>
+            <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" layoutX="-1.0" layoutY="-1.0" maxHeight="600.0" maxWidth="250.0" minHeight="600.0" minWidth="46.0" prefHeight="600.0" prefWidth="46.0" />
+            <JFXHamburger fx:id="ham1" focusTraversable="true" layoutX="181.0" layoutY="-12.0" prefHeight="90.0" prefWidth="80.0" style="-fx-fill: white;">
+               <effect>
+                  <Glow />
+               </effect>
+            </JFXHamburger>
+            <JFXDrawer layoutX="521.0" layoutY="736.0" />
+            <JFXTextField fx:id="nomEXP" labelFloat="true" layoutX="81.0" layoutY="155.0" maxWidth="312.0" minWidth="232.0" prefHeight="33.0" prefWidth="312.0" promptText="Nom  experience">
+               <effect>
+                  <Glow level="0.72" />
+               </effect>
+            </JFXTextField>
+            <JFXTextArea fx:id="descEXP" labelFloat="true" layoutX="79.0" layoutY="364.0" prefHeight="185.0" prefWidth="316.0" promptText="Description" />
+            <JFXTextField fx:id="imgEXP" labelFloat="true" layoutX="511.0" layoutY="154.0" maxWidth="312.0" minWidth="232.0" prefHeight="33.0" prefWidth="312.0" promptText="Image experience">
+               <effect>
+                  <Glow level="0.72" />
+               </effect>
+            </JFXTextField>
+            <JFXTextField fx:id="lieuEXP" labelFloat="true" layoutX="509.0" layoutY="266.0" maxWidth="312.0" minWidth="232.0" prefHeight="33.0" prefWidth="312.0" promptText="Lieu  experience">
+               <effect>
+                  <Glow level="0.72" />
+               </effect>
+            </JFXTextField>
+            <JFXButton fx:id="ajouterEXP" layoutX="577.0" layoutY="461.0" onAction="#makeAjouterEXP" prefHeight="40.0" prefWidth="167.0" text="Ajouter">
+               <graphic>
+                  <FontAwesomeIconView glyphName="CHECK" size="20" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="91.0" layoutY="92.0" prefHeight="43.0" prefWidth="261.0" text="Ajouter Experience ">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dateEXP" layoutX="578.0" layoutY="364.0" />
+            <Label layoutX="513.0" layoutY="368.0" text="Date" />
+            <ComboBox fx:id="typeEXP" layoutX="79.0" layoutY="270.0" prefHeight="25.0" prefWidth="305.0" promptText="Select Type" />
+            <Label layoutX="83.0" layoutY="242.0" text="Type" />
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="btnImage" layoutX="513.0" layoutY="214.0" onAction="#addImage" prefHeight="40.0" prefWidth="126.0" text="Select image" />
+   </children>
+</AnchorPane>

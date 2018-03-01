@@ -3,8 +3,10 @@ package Mains;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -19,7 +21,9 @@ public class Login extends Application
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
         Parent root = loader.load();
         root.setId("pane");
+        
         stage.initStyle(StageStyle.TRANSPARENT);
+        root.setEffect(new DropShadow());
         root.setOnMousePressed((javafx.scene.input.MouseEvent event) -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();

@@ -194,7 +194,7 @@ public class BonPlanController extends ListView<String> implements Initializable
         
         
         JFXTreeTableColumn<BonPlan,Image> Image = new JFXTreeTableColumn<>("");
-        Image.setPrefWidth(200);
+        Image.setPrefWidth(250);
         Image.setCellValueFactory((TreeTableColumn.CellDataFeatures<BonPlan, Image> param) ->  
                 new SimpleObjectProperty(new Image(param.getValue().getValue().getImg_bp())));
         
@@ -248,10 +248,12 @@ public class BonPlanController extends ListView<String> implements Initializable
         private final Tooltip tooltip = new Tooltip(); 
 
         { 
-            imageView1.setFitHeight(100);
-            imageView1.setFitWidth(100);
-            imageView1.setPreserveRatio(true); 
-            imageView1.setSmooth(true); 
+            DropShadow dp = new DropShadow();
+            imageView1.setFitHeight(150);
+            imageView1.setFitWidth(230);
+            //imageView1.setPreserveRatio(true); 
+            imageView1.setSmooth(true);
+            imageView1.setEffect(dp);
             tooltip.setText(null); 
             tooltip.setGraphic(imageView2);
             imageView2.setFitHeight(300);
@@ -277,7 +279,7 @@ public class BonPlanController extends ListView<String> implements Initializable
        
         
         
-        treeview.getColumns().addAll(Nom,Type,Date,Image);
+        treeview.getColumns().addAll(Nom,Type,Image,Date);
         treeview.setRoot(root);
         treeview.setShowRoot(false);
         Type.setVisible(false);

@@ -5,8 +5,7 @@
  */
 package iService;
 
-import entite.User;
-import java.sql.SQLException;
+import entite.Experience;
 import java.util.List;
 import javafx.collections.ObservableList;
 
@@ -14,13 +13,12 @@ import javafx.collections.ObservableList;
  *
  * @author Radhi
  */
-public interface iUser {
+public interface iExperience {
     
     
-    public void ajouterUser(User u);
-    public void supprimerUser(int id);
-    public ObservableList<User>selectUsers();
-    public User selectUser(int id)throws SQLException;
-    public void modifierUser(User u,int id);
-    
+    public void ajouterExperience(Experience exp);
+    public void supprimerExperience(int id);
+    public List<Experience> selectBonPlansByID(int idu);
+    public List<Experience>selectExperiences();
+    public void updateexperience(Experience exp,int id_exp);
 }

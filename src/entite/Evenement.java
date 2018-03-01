@@ -5,21 +5,36 @@
  */
 package entite;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.sql.Date;
 
 /**
  *
  * @author Radhi
  */
-public class Evenement {
+public class Evenement extends RecursiveTreeObject<Evenement> {
     private int id_event;
     private String nom_event;
     private String type_event;
     private String desc_event;
+    
+    private java.util.Date utilDate = new java.util.Date();
+    private java.sql.Date date_event = new java.sql.Date(utilDate.getTime());
+    private int lieu_event;
     private String img_event;
-    private Date date_event;
-    private String lieu_event;
     private int id_user;
+
+    public Evenement(int i, String nomS, String typeS, String descS, String imgS, int lieuS, int idCnx) {
+        this.id_event = i;
+        this.nom_event = nomS;
+        this.type_event = typeS;
+        this.desc_event = descS;
+        this.img_event = imgS;
+        
+        this.lieu_event = lieuS;
+        
+        this.id_user = idCnx;
+    }
 
     public int getId_event() {
         return id_event;
@@ -69,11 +84,11 @@ public class Evenement {
         this.date_event = date_event;
     }
 
-    public String getLieu_event() {
+    public int getLieu_event() {
         return lieu_event;
     }
 
-    public void setLieu_event(String lieu_event) {
+    public void setLieu_event(int lieu_event) {
         this.lieu_event = lieu_event;
     }
 
@@ -85,18 +100,19 @@ public class Evenement {
         this.id_user = id_user;
     }
 
-    public Evenement(int id_event, String nom_event, String type_event, String desc_event, String img_event, Date date_event, String lieu_event, int id_user) {
+    /*public Evenement(int id_event, String nom_event, String type_event, String desc_event,  Date date_event, int lieu_event,String img_event, int id_user) {
         this.id_event = id_event;
         this.nom_event = nom_event;
         this.type_event = type_event;
         this.desc_event = desc_event;
-        this.img_event = img_event;
+        
         this.date_event = date_event;
         this.lieu_event = lieu_event;
+        this.img_event = img_event;
         this.id_user = id_user;
     }
 
-   
+   */
     
     
    
@@ -108,7 +124,7 @@ public class Evenement {
 
     @Override
     public String toString() {
-        return "\nEvenement{" + "id_event=" + id_event + ", nom_event=" + nom_event + ", type_event=" + type_event + ", desc_event=" + desc_event + ", img_event=" + img_event + ", date_event=" + date_event + ", lieu_event=" + lieu_event + ", id_user=" + id_user + '}';
+        return "\nEvenement{" + "id_event=" + id_event + ", nom_event=" + nom_event + ", type_event=" + type_event + ", desc_event=" + desc_event + ",  date_event=" + date_event + ", lieu_event=" + lieu_event + ",img_event=" + img_event + " , id_user=" + id_user + '}';
     }
     
    

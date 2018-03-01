@@ -278,5 +278,58 @@ public class EvaluationService implements iService.iEval{
             System.out.println(eval.toString());
             return eval;
     }
+
+    @Override
+    public Evaluation selectEvalByIDuserE(int id_user, int ide) throws SQLException {
+        Evaluation eval = new Evaluation();
+        
+        Statement stm = myDB.getConnexion().createStatement();
+        ResultSet rest=stm.executeQuery("select * from evaluation where (id_user = "+id_user+" AND id_event = "+ide+" )");
+            
+            while(rest.next())
+            {
+                eval.setId_eval(rest.getInt(1));
+                eval.setVal_eval(rest.getFloat(2));
+                eval.setComment_eval(rest.getString(3));
+                eval.setDate_eval(rest.getDate(4));
+                eval.setId_bp(rest.getInt(5));
+                eval.setId_bus(rest.getInt(6));
+                eval.setId_event(rest.getInt(7));
+                eval.setId_user(rest.getInt(8));
+            }
+            System.out.println(eval.toString());
+            return eval;
+    }
+
+    @Override
+    public List<Evaluation> selectEvalsByIDE(int ide) {
+        ObservableList<Evaluation> evals = FXCollections.observableArrayList();
+        try
+        {
+        Statement stm = myDB.getConnexion().createStatement();
+        ResultSet rest=stm.executeQuery("select * from evaluation where id_event ="+ide+"");
+            while(rest.next())
+            {
+                Evaluation eval = new Evaluation();
+
+                eval.setId_eval(rest.getInt(1));
+                eval.setVal_eval(rest.getFloat(2));
+                eval.setComment_eval(rest.getString(3));
+                eval.setDate_eval(rest.getDate(4));
+                eval.setId_bp(rest.getInt(5));
+                eval.setId_bus(rest.getInt(6));
+                eval.setId_event(rest.getInt(7));
+                eval.setId_user(rest.getInt(8));
+
+
+                evals.add(eval);
+            }
+        }
+        catch (SQLException ex)
+        {
+            System.out.println("Probleme affichage");
+        }
+        return evals;
+    }
     
 }

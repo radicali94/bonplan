@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.effect.Glow?>
@@ -19,8 +20,8 @@
          <effect>
             <Glow />
          </effect></JFXTextField>
-      <JFXButton fx:id="annuler" buttonType="RAISED" cancelButton="true" layoutX="480.0" layoutY="486.0" onAction="#makeAnnuler" prefHeight="32.0" prefWidth="86.0" ripplerFill="WHITE" style="-fx-background-color: #96999a;" text="Annuler" textAlignment="CENTER" textFill="WHITE" />
-      <JFXButton fx:id="valider" buttonType="RAISED" defaultButton="true" layoutX="330.0" layoutY="486.0" onAction="#makeValider" prefHeight="32.0" prefWidth="86.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Valider" textAlignment="CENTER" textFill="WHITE">
+      <JFXButton fx:id="annuler" buttonType="RAISED" cancelButton="true" layoutX="307.0" layoutY="539.0" onAction="#makeAnnuler" prefHeight="32.0" prefWidth="86.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Annuler" textAlignment="CENTER" textFill="WHITE" />
+      <JFXButton fx:id="valider" buttonType="RAISED" defaultButton="true" layoutX="421.0" layoutY="539.0" onAction="#makeValider" prefHeight="32.0" prefWidth="86.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Valider" textAlignment="CENTER" textFill="WHITE">
          <effect>
             <Glow />
          </effect></JFXButton>
@@ -47,5 +48,16 @@
             <Glow />
          </effect>
       </JFXPasswordField>
+      <JFXPasswordField fx:id="txTelephone" focusColor="#09b6bc" labelFloat="true" layoutX="523.0" layoutY="316.0" maxWidth="232.0" minWidth="214.0" prefHeight="40.0" prefWidth="232.0" promptText=" Telephone" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: #97d6ee;" unFocusColor="#97d6ee">
+         <effect>
+            <Glow />
+         </effect>
+      </JFXPasswordField>
+      <JFXComboBox fx:id="cbType" layoutX="523.0" layoutY="386.0" prefHeight="40.0" prefWidth="232.0" style="-fx-prompt-text-fill: #97d6ee; -fx-text-fill: white;" unFocusColor="#97d6ee" />
+      <JFXButton fx:id="btPicture" buttonType="RAISED" defaultButton="true" layoutX="307.0" layoutY="487.0" onAction="#upload" prefHeight="32.0" prefWidth="198.0" ripplerFill="WHITE" style="-fx-background-color: #96999a;" text="Select picture" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <Glow />
+         </effect>
+      </JFXButton>
    </children>
 </AnchorPane>

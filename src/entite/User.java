@@ -21,6 +21,31 @@ public class User {
     private String tel;
     private String photo;
     private String type;
+    private int etat;
+
+    public User(String username, String email, String password, String nom, String prenom, String tel, String photo, String type) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.tel = tel;
+        this.photo = photo;
+        this.type = type;
+    }
+
+    public int getEtat() {
+        return etat;
+    }
+
+    public void setEtat(int etat) {
+        this.etat = etat;
+    }
+    
+    
+    
+    
+    
 
     public int getId() {
         return id;
@@ -47,11 +72,11 @@ public class User {
     }
 
     public int getEnabled() {
-        return 1;
+        return enabled;
     }
 
     public void setEnabled(int enabled) {
-        this.enabled = 1;
+        this.enabled = enabled;
     }
 
     public String getPassword() {
@@ -110,8 +135,8 @@ public class User {
         this.type = type;
     }
 
-    public User(int id, String username, String email, int enabled, String password, String roles, String nom, String prenom, String tel, String photo, String type) {
-        this.id = id;
+    public User( String username, String email, int enabled, String password, String roles, String nom, String prenom, String tel, String photo, String type) {
+      
         this.username = username;
         this.email = email;
         this.enabled = enabled;

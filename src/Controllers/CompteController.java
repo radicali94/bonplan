@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import static Controllers.LoginController.user;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -19,10 +20,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import service.UserService;
 
 /**
  *
@@ -33,6 +41,8 @@ public class CompteController implements Initializable{
     private double xOffset = 0;
     private double yOffset = 0;
     
+    
+    
     @FXML
     private JFXButton btnX;
     @FXML
@@ -41,6 +51,24 @@ public class CompteController implements Initializable{
     private JFXDrawer drawer;
     @FXML
     private AnchorPane pane1;
+    @FXML
+    private ImageView imageViem;
+    @FXML
+    private Label lbNom;
+    @FXML
+    private Label lbPrenom;
+    @FXML
+    private Label lbLogin;
+    @FXML
+    private Label lbType;
+    @FXML
+    private Label lbEmail;
+    @FXML
+    private Label lbTel;
+    @FXML
+    private JFXButton btModifier;
+    @FXML
+    private JFXButton btDesactiver;
 
     @FXML
     private void close(ActionEvent event) {
@@ -60,6 +88,17 @@ public class CompteController implements Initializable{
                     stage.setX(event.getScreenX()-xOffset);
                     stage.setY(event.getScreenY()-yOffset);
                 });
+                //"file:///C:/xampp/htdocs/Images/"+
+                Image img = new Image(user.getPhoto());
+                imageViem.setImage(img);
+                
+                
+                lbEmail.setText(user.getEmail());
+                lbLogin.setText(user.getUsername());
+                lbNom.setText(user.getNom());
+                lbPrenom.setText(user.getPrenom());
+                lbTel.setText(user.getTel());
+                lbType.setText(user.getType());
         
         try {
             AnchorPane box = FXMLLoader.load(getClass().getResource("/views/drawerContent.fxml"));
@@ -89,6 +128,38 @@ public class CompteController implements Initializable{
         } catch (IOException ex) {
             Logger.getLogger(BonPlanController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void modifier(ActionEvent event) throws IOException {
+        
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ModifierProfil.fxml"));
+        Parent root = loader.load();
+        root.setId("pane");
+        
+        Scene scene1 = new Scene(root);
+        stage.setScene(scene1);
+        scene1.getStylesheets().addAll(this.getClass().getResource("/Content/style.css").toExternalForm());
+        stage.show();
+        
+    }
+
+    @FXML
+    private void desactiver(ActionEvent event) throws IOException {
+        
+        UserService us = new UserService(user);
+        us.desactiverUser( user.getId());
+        
+         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+        Parent root = loader.load();
+        root.setId("pane");
+        
+        Scene scene1 = new Scene(root);
+        stage.setScene(scene1);
+        scene1.getStylesheets().addAll(this.getClass().getResource("/Content/style.css").toExternalForm());
+        stage.show();
     }
     
 }

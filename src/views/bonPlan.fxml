@@ -9,6 +9,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
@@ -102,5 +104,10 @@
             </JFXButton>
          </children>
       </HBox>
+      <ImageView fitHeight="126.0" fitWidth="168.0" layoutX="722.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Content/city.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

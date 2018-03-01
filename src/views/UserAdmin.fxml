@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane1" maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserAdminController">
+   <children>
+      <JFXButton fx:id="btSupprimer" buttonType="RAISED" cache="true" cacheHint="SPEED" defaultButton="true" layoutX="70.0" layoutY="538.0" onAction="#supprimer" prefHeight="47.0" prefWidth="188.0" ripplerFill="WHITE" style="-fx-background-color: #663399;" text="Supprimer membre" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <Glow />
+         </effect>
+      </JFXButton>
+      <TableView fx:id="tvUser" cache="true" cacheHint="SPEED" layoutX="41.0" layoutY="76.0" prefHeight="190.0" prefWidth="842.0">
+         <columns>
+            <TableColumn fx:id="colNom" prefWidth="139.0" text="nom" />
+            <TableColumn fx:id="colPrenom" prefWidth="150.0" text="prenom" />
+            <TableColumn fx:id="colEmail" prefWidth="146.0" text="email" />
+            <TableColumn fx:id="colLogin" prefWidth="141.0" text="login" />
+            <TableColumn fx:id="colTel" prefWidth="138.0" text="telephone" />
+            <TableColumn fx:id="colType" prefWidth="128.0" text="type" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tvUser1" cache="true" cacheHint="SPEED" layoutX="43.0" layoutY="323.0" prefHeight="190.0" prefWidth="842.0">
+         <columns>
+            <TableColumn fx:id="colNom1" prefWidth="139.0" text="nom" />
+            <TableColumn fx:id="colPrenom1" prefWidth="150.0" text="prenom" />
+            <TableColumn fx:id="colEmail1" prefWidth="146.0" text="email" />
+            <TableColumn fx:id="colLogin1" prefWidth="141.0" text="login" />
+            <TableColumn fx:id="colTel1" prefWidth="138.0" text="telephone" />
+            <TableColumn fx:id="colType1" prefWidth="128.0" text="type" />
+         </columns>
+      </TableView>
+      <Label cache="true" cacheHint="SPEED" layoutX="386.0" layoutY="19.0" prefHeight="39.0" prefWidth="223.0" text="Liste des membres" textFill="WHITE">
+         <font>
+            <Font name="Roboto Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label cache="true" cacheHint="SPEED" layoutX="393.0" layoutY="277.0" prefHeight="39.0" prefWidth="223.0" text="Demande admin" textFill="#663399">
+         <font>
+            <Font name="Roboto Bold" size="25.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btAjouter" buttonType="RAISED" cache="true" cacheHint="SPEED" defaultButton="true" layoutX="273.0" layoutY="538.0" onAction="#ajouter" prefHeight="47.0" prefWidth="188.0" ripplerFill="WHITE" style="-fx-background-color: #663399;" text="Ajouter membre" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <Glow />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="btBanner" buttonType="RAISED" cache="true" cacheHint="SPEED" defaultButton="true" layoutX="477.0" layoutY="538.0" onAction="#bannrMembre" prefHeight="47.0" prefWidth="188.0" ripplerFill="WHITE" style="-fx-background-color: #663399;" text="Banner membre" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <Glow />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="btnX" cache="true" cacheHint="SPEED" layoutX="856.0" layoutY="-3.0" minWidth="46.0" onAction="#close" prefHeight="32.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #00111111;" text="X" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <Glow />
+         </effect>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btAccepter" buttonType="RAISED" cache="true" cacheHint="SPEED" defaultButton="true" layoutX="681.0" layoutY="538.0" onAction="#accepterAdmin" prefHeight="47.0" prefWidth="188.0" ripplerFill="WHITE" style="-fx-background-color: #663399;" text="Accepter admin" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <Glow />
+         </effect>
+      </JFXButton>
+      <JFXDrawer fx:id="drawer" cache="true" cacheHint="SPEED" defaultDrawerSize="250.0" maxHeight="600.0" maxWidth="250.0" minHeight="600.0" minWidth="46.0" prefHeight="600.0" prefWidth="46.0" />
+      <JFXHamburger fx:id="ham1" cache="true" cacheHint="SPEED" focusTraversable="true" layoutX="182.0" layoutY="-11.0" prefHeight="90.0" prefWidth="80.0" stylesheets="@../Content/styleHamburger.css">
+         <effect>
+            <DropShadow />
+         </effect>
+      </JFXHamburger>
+      <JFXTextField fx:id="txRecherche" cache="true" cacheHint="SPEED" focusColor="WHITE" layoutX="645.0" layoutY="33.0" onKeyPressed="#rechercher" prefHeight="32.0" prefWidth="188.0" promptText="Recherche" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE" />
+      <JFXTextField fx:id="txRecherche1" cache="true" cacheHint="SPEED" focusColor="#663399" layoutX="645.0" layoutY="280.0" onKeyPressed="#rechercher2" prefHeight="32.0" prefWidth="188.0" promptText="Recherche" unFocusColor="#aa5aff" />
+   </children>
+</AnchorPane>

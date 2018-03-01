@@ -1,27 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pane1" maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EventController">
    <children>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" layoutX="-1.0" layoutY="-1.0" maxHeight="600.0" maxWidth="250.0" minHeight="600.0" minWidth="250.0" prefHeight="600.0" prefWidth="250.0" />
-      <JFXButton fx:id="btnX" layoutX="856.0" layoutY="-3.0" minWidth="46.0" onAction="#close" prefHeight="32.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #00111111;" text="X" textAlignment="CENTER" textFill="WHITE">
+      <JFXTreeTableView fx:id="treeview" cache="true" cacheHint="SPEED" layoutX="162.0" layoutY="65.0" onContextMenuRequested="#makeContextMenu" prefHeight="532.0" prefWidth="551.0" showRoot="false" sortMode="ONLY_FIRST_LEVEL" style="-fx-background-color: transparent; -fx-tree-table-color: transparent; -fx-tree-table-row-color: transparent;" stylesheets="@../Content/style_1.css" />
+      <JFXButton fx:id="btnX" cache="true" cacheHint="SPEED" layoutX="856.0" layoutY="-3.0" minWidth="46.0" onAction="#close" prefHeight="32.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #00111111;" text="X" textAlignment="CENTER" textFill="WHITE">
          <effect>
             <Glow />
          </effect>
          <font>
             <Font name="System Bold" size="14.0" />
-         </font></JFXButton>
-      <JFXHamburger fx:id="ham1" focusTraversable="true" layoutX="210.0" layoutY="19.0">
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="search" cache="true" cacheHint="SPEED" focusColor="WHITE" labelFloat="true" layoutX="634.0" layoutY="16.0" maxWidth="232.0" minWidth="100.0" prefHeight="33.0" prefWidth="143.0" promptText="🔎  Search" style="-jfx-label-float: white; -fx-text-fill: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE">
          <effect>
-            <Glow />
-         </effect></JFXHamburger>
-      <JFXDatePicker layoutX="300.0" layoutY="227.0" />
+            <DropShadow />
+         </effect>
+      </JFXTextField>
+      <JFXDrawer fx:id="drawer" cache="true" cacheHint="SPEED" defaultDrawerSize="250.0" layoutX="-1.0" layoutY="-1.0" maxHeight="600.0" maxWidth="250.0" minHeight="600.0" minWidth="46.0" prefHeight="600.0" prefWidth="46.0" />
+      <JFXHamburger fx:id="ham1" cache="true" cacheHint="SPEED" focusTraversable="true" layoutX="181.0" layoutY="-12.0" prefHeight="90.0" prefWidth="80.0" stylesheets="@../Content/styleHamburger.css">
+         <effect>
+            <DropShadow />
+         </effect>
+      </JFXHamburger>
+      <HBox cache="true" cacheHint="SPEED" layoutX="248.0" layoutY="4.0" prefHeight="60.0" prefWidth="383.0">
+         <children>
+            <JFXButton fx:id="btnAddEvent" contentDisplay="GRAPHIC_ONLY" onAction="#makeAddEvent" prefHeight="60.0" prefWidth="120.0">
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="52.0" prefWidth="92.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="35" wrappingWidth="34.5">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </FontAwesomeIconView>
+                        <Label prefHeight="54.0" prefWidth="48.0" text="Ajouter&#10;événement" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Bold" size="12.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnShowEvents" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#makeShowEvents" prefHeight="60.0" prefWidth="124.0">
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="35" wrappingWidth="46.0">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </FontAwesomeIconView>
+                        <Label text="Afficher&#10;événements" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Bold" size="12.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnMyEvents" contentDisplay="GRAPHIC_ONLY" onAction="#makeMyEvents" prefHeight="60.0" prefWidth="125.0">
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="35" wrappingWidth="41.0">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </FontAwesomeIconView>
+                        <Label alignment="CENTER" text="Mes&#10;événements" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Bold" size="12.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

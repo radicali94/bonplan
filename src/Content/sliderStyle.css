@@ -1,0 +1,17 @@
+.jfx-slider {
+    -thumb-color: #663399 ;
+}
+.jfx-slider .thumb {
+    -fx-background-color: #663399 ;
+}
+.jfx-slider .animated-thumb {
+    -fx-background-color: #663399 ;
+}
+
+.jfx-slider .track {
+    -fx-background-color: #aa5aff ;
+}
+
+.jfx-slider .fill {
+    -fx-background-color: #663399 ;
+}

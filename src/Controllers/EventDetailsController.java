@@ -1,9 +1,19 @@
 package Controllers;
 
+
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+
+import com.itextpdf.text.Element;
+
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
@@ -22,9 +32,7 @@ import com.lynden.gmapsfx.javascript.object.GoogleMap;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import com.lynden.gmapsfx.javascript.object.LatLong;
-import com.lynden.gmapsfx.javascript.object.MVCArray;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
-import com.lynden.gmapsfx.javascript.object.MapShape;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
@@ -34,28 +42,17 @@ import com.lynden.gmapsfx.service.directions.DirectionsRequest;
 import com.lynden.gmapsfx.service.directions.DirectionsResult;
 import com.lynden.gmapsfx.service.directions.DirectionsService;
 import com.lynden.gmapsfx.service.directions.DirectionsServiceCallback;
-import com.lynden.gmapsfx.service.directions.DirectionsWaypoint;
 import com.lynden.gmapsfx.service.directions.TravelModes;
-import com.lynden.gmapsfx.service.geocoding.GeocodingService;
-import com.lynden.gmapsfx.shapes.Polygon;
-import com.lynden.gmapsfx.shapes.PolygonOptions;
-import com.lynden.gmapsfx.shapes.Polyline;
-import com.lynden.gmapsfx.shapes.PolylineOptions;
-import entite.BonPlan;
+import entite.Evenement;
 import entite.Evaluation;
 import entite.Position;
 import entite.User;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
-import static java.lang.System.in;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.logging.Level;
@@ -65,6 +62,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,8 +70,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
@@ -86,24 +82,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javax.imageio.ImageIO;
-import jdk.nashorn.api.scripting.JSObject;
-import jdk.nashorn.internal.ir.BreakNode;
 import org.controlsfx.control.Rating;
-import service.BonPlanService;
+//import org.w3c.dom.Document;
+import service.EvenementService;
 import service.EvaluationService;
 import service.PositionService;
 import service.UserService;
 
-public class BonPlanDetailsController extends ListView<String> implements Initializable, MapComponentInitializedListener, DirectionsServiceCallback{
+public class EventDetailsController extends ListView<String> implements Initializable, MapComponentInitializedListener, DirectionsServiceCallback{
 
     private double xOffset = 0;
     private double yOffset = 0;
-    
-    protected DirectionsService directionsService;
-    protected DirectionsPane directionsPane;
-    protected DirectionsRenderer directionsRenderer = null;
     
     @FXML
     private JFXTreeTableView<Evaluation> treeview;
@@ -112,13 +102,13 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
     private JFXButton btnX;
 
     @FXML
-    private JFXButton btnAddPlan;
+    private JFXButton btnAddEvent;
 
     @FXML
-    private JFXButton btnShowPlans;
+    private JFXButton btnShowEvents;
 
     @FXML
-    private JFXButton btnMesPlans;
+    private JFXButton btnMyEvents;
 
     @FXML
     private JFXTextField search;
@@ -128,8 +118,7 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
 
     private Label labelType;
 
-    @FXML
-    private Label labelPrix;
+   
 
     @FXML
     private Text labelDesc;
@@ -140,7 +129,7 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
     @FXML
     private JFXHamburger ham1;
     @FXML
-    private ImageView ImageBP;
+    private ImageView ImageE;
     
     private GoogleMap map;
     @FXML
@@ -159,13 +148,14 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
     private JFXTextArea comm;
     @FXML
     private ImageView imgOwner;
-    @FXML
-    private JFXButton login1;
+   
     
-    public static String fbPost;
-    public static InputStream fbImage;
+    private String url;
     @FXML
-    private JFXProgressBar progressBar;
+    private JFXButton btn_res;
+
+    
+    
 
     @FXML
     void close(ActionEvent event) {
@@ -174,9 +164,22 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
     }
 
     @FXML
-    void makeAddPlan(ActionEvent event) throws IOException {
+    void makeAddEvent(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/bonPlanAdd.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/eventAdd.fxml"));
+        Parent root = loader.load();
+        //root.setId("pane");
+        
+        Scene scene1 = new Scene(root);
+        stage.setScene(scene1);
+        //scene1.getStylesheets().addAll(this.getClass().getResource("/Content/style.css").toExternalForm());
+        stage.show();
+    }
+
+    @FXML
+    void makeMyEvents(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/eventMine.fxml"));
         Parent root = loader.load();
         root.setId("pane");
         
@@ -187,22 +190,9 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
     }
 
     @FXML
-    void makeMesPlans(ActionEvent event) throws IOException {
+    void makeShowEvents(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/bonPlanMine.fxml"));
-        Parent root = loader.load();
-        root.setId("pane");
-        
-        Scene scene1 = new Scene(root);
-        stage.setScene(scene1);
-        scene1.getStylesheets().addAll(this.getClass().getResource("/Content/style.css").toExternalForm());
-        stage.show();
-    }
-
-    @FXML
-    void makeShowPlans(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/bonPlan.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/event.fxml"));
         Parent root = loader.load();
         root.setId("pane");
         
@@ -222,7 +212,7 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
             rateValue = newValue.floatValue();
         });
         
-        int idbp1 = BonPlanController.getIdBP();
+        int ide1 = EventController.getIdE();
         int idusr1 = LoginController.getIdCnx();
         
         
@@ -231,9 +221,9 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
         EvaluationService evals2 = new EvaluationService(eval2);
         
         try {
-            eval2 = evals2.selectEvalByIDuserBP(idusr1, idbp1);
+            eval2 = evals2.selectEvalByIDuserE(idusr1, ide1);
         } catch (SQLException ex) {
-            Logger.getLogger(BonPlanDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("rrrrrrrrrrrrrrrrr "+eval2.toString());
         
@@ -257,7 +247,7 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
         try {
             afficher();
         } catch (SQLException ex) {
-            Logger.getLogger(BonPlanDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
          
                 pane1.setOnMousePressed((javafx.scene.input.MouseEvent event) -> {
@@ -273,30 +263,30 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
          
                  
         try {
-            int idbp0 = BonPlanController.getIdBP();
-            System.out.println("ID du bon plan"+idbp0);
-            BonPlan bp1 = new BonPlan();
-            BonPlanService bps1 = new BonPlanService(bp1);
-            bp1 = bps1.selectBonPlan(idbp0);
+            int ide0 = EventController.getIdE();
+            System.out.println("ID de l'evenement"+ide0);
+            Evenement e1 = new Evenement();
+            EvenementService es1 = new EvenementService(e1);
+            e1 = es1.selectEvenement(ide0);
             
-            User u1 = new User();
+             User u1 = new User();
             UserService us1 = new UserService(u1);
-            u1 = us1.selectUser(bp1.getId_user());
+            u1 = us1.selectUser(e1.getId_user());
             
             
             DropShadow drop = new DropShadow();
             imgOwner.setImage(new Image(u1.getPhoto()));
             imgOwner.setEffect(drop);
-            labelNom.setText(bp1.getNom_bp());
-            String descS = bp1.getDesc_bp();
+            labelNom.setText(e1.getNom_event());
+            String descS = e1.getDesc_event();
             descS=descS.replace("_", "'");
             labelDesc.setText(descS);
             labelUser1.setText("   "+u1.getUsername());
-            labelPrix.setText(Double.toString(bp1.getPrix_bp())+" DT");
-            ImageBP.setImage(new Image(bp1.getImg_bp()));
+            
+            ImageE.setImage(new Image(e1.getImg_event()));
             
         } catch (SQLException ex) {
-            Logger.getLogger(BonPlanDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -304,28 +294,14 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
 
     @Override
     public void mapInitialized() {
-        directionsPane=mapView.getDirec();
-        
-        
-        
-        
-        
-            
-            int idbp1 = BonPlanController.getIdBP();
-            BonPlan bp1 = new BonPlan();
-            BonPlanService bps1 = new BonPlanService(bp1);
         try {
-            bp1 = bps1.selectBonPlan(idbp1);
-        } catch (SQLException ex) {
-            Logger.getLogger(BonPlanDetailsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            int ide1 = EventController.getIdE();
+            Evenement e1 = new Evenement();
+            EvenementService es1 = new EvenementService(e1);
+            e1 = es1.selectEvenement(ide1);
             Position pos1 = new Position();
             PositionService pserv1 = new PositionService(pos1);
-        try {
-            pos1 = pserv1.selectPosition(bp1.getLieu_bp());
-        } catch (SQLException ex) {
-            Logger.getLogger(BonPlanDetailsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            pos1 = pserv1.selectPosition(e1.getLieu_event());
             
             System.out.println(pos1.toString());
             System.out.println(pos1.getLatitude());
@@ -338,7 +314,7 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
                     //Set the initial properties of the map.
                     MapOptions mapOptions = new MapOptions();
                     
-                    mapOptions.center(myLocation)
+                    mapOptions.center(new LatLong(36.8065, 10.1815))
                             .mapType(MapTypeIdEnum.ROADMAP)
                             .overviewMapControl(false)
                             .panControl(false)
@@ -346,7 +322,7 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
                             .scaleControl(false)
                             .streetViewControl(false)
                             .zoomControl(false)
-                            .zoom(10);
+                            .zoom(12);
                     
                     map = mapView.createMap(mapOptions);
                     
@@ -359,7 +335,7 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
                     map.addMarker( myMarker );
                                         
                     InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-                    infoWindowOptions.content("<h2>"+bp1.getNom_bp() +"</h2>"
+                    infoWindowOptions.content("<h2>"+e1.getNom_event() +"</h2>"
                             + pos1.getNom_pos()+"<br>");
                     
                     InfoWindow myInfoWindow = new InfoWindow(infoWindowOptions);
@@ -383,47 +359,32 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
                     
                     
                     
+                    DirectionsService directionsService = new DirectionsService();
+                    DirectionsPane directionsPane = mapView.getDirec();
                     
+                    DirectionsRequest request = new DirectionsRequest(myLocation, myLocation1, TravelModes.TRANSIT);
+                    
+                    directionsService.getRoute(request,this, new DirectionsRenderer(true, mapView.getMap(), directionsPane));
                     
                     
                     
                     myMarker1.setAnimation(Animation.BOUNCE);
                     double dist =myLocation.distanceFrom(myLocation1);
-                    int distkm = (int)dist/1000;
-                    int etamin = (int)((dist*6)/4000);
-                    if(etamin>59)
-                    {
-                        int etah = etamin/60;
-                        etamin = etamin - (etah*60);
-                        InfoWindowOptions infoWindowOptions1 = new InfoWindowOptions();
-                        infoWindowOptions1.content("<h2>"+"Ma position" +"</h2>"
-                                + "Distance: "+distkm+" km"+"<br>"
-                                + "ETA:"+etah+" h"+etamin+"min" );
-                        InfoWindow myInfoWindow1 = new InfoWindow(infoWindowOptions1);
-                        myInfoWindow1.open(map, myMarker1);
-                    }
-                    else
-                    {
-                        InfoWindowOptions infoWindowOptions1 = new InfoWindowOptions();
-                        infoWindowOptions1.content("<h2>"+"Ma position" +"</h2>"
-                                + "Distance: "+distkm+" km"+"<br>"
-                                + "ETA:"+etamin+" minutes" );
-                        InfoWindow myInfoWindow1 = new InfoWindow(infoWindowOptions1);
-                        myInfoWindow1.open(map, myMarker1);
-                    }
-                    
+                    InfoWindowOptions infoWindowOptions1 = new InfoWindowOptions();
+                    infoWindowOptions1.content("<h2>"+"Ma position" +"</h2>"
+                            + "Distance: "+(int)dist/1000+" km"+"<br>"
+                            + "ETA:"+(int)((dist*6)/4000) +" minutes" );
+                    InfoWindow myInfoWindow1 = new InfoWindow(infoWindowOptions1);
+                    myInfoWindow1.open(map, myMarker1);
                     //myInfoWindow.close();
-                    //DirectionsRequest request = new DirectionsRequest(myLocation1, myLocation, TravelModes.DRIVING);
-                    //directionsRenderer = new DirectionsRenderer(true, mapView.getMap(), directionsPane);
-                    //directionsService.getRoute(request, this, directionsRenderer);
-                    
-                    
                     
                     
                         System.out.println("Distance= "+dist);
                     
                     });
-        
+        } catch (SQLException ex) {
+            Logger.getLogger(EventDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -435,14 +396,14 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
     private void makeComment(ActionEvent event) throws SQLException {
         
         int idusr1 = LoginController.getIdCnx();
-        int idbp1 = BonPlanController.getIdBP();
+        int ide1 = EventController.getIdE();
         
-        Evaluation eval = new Evaluation(0, rateValue, comm.getText(), idbp1, 0, 0, LoginController.getIdCnx());
+        Evaluation eval = new Evaluation(0, rateValue, comm.getText(), ide1, 0, 0, LoginController.getIdCnx());
         EvaluationService evals = new EvaluationService(eval);
         
         Evaluation eval2 = new Evaluation();
         EvaluationService evals2 = new EvaluationService(eval2);
-        eval2 = evals2.selectEvalByIDuserBP(idusr1, idbp1);
+        eval2 = evals2.selectEvalByIDuserE(idusr1, ide1);
         System.out.println(eval2.getId_user());
         if(eval2.getId_user()!= 0)
         {
@@ -465,8 +426,6 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
             
         }
         
-        
-        
     }
     
     private void afficher() throws SQLException
@@ -474,17 +433,17 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
         
         
         JFXTreeTableColumn<Evaluation,Image> Note = new JFXTreeTableColumn<>("Note");
-        Note.setPrefWidth(120);
+        Note.setPrefWidth(150);
         Note.setCellValueFactory((TreeTableColumn.CellDataFeatures<Evaluation, Image> param) ->  
                 new SimpleObjectProperty(new Image("/Content/rating"+(int)(param.getValue().getValue().getVal_eval())+".png")));
-        
+         //"+((int)(param.getValue().getValue().getVal_eval()))+"
         JFXTreeTableColumn<Evaluation,String> Comm = new JFXTreeTableColumn<>("Commentaire");
-        Comm.setPrefWidth(210);
+        Comm.setPrefWidth(150);
         Comm.setCellValueFactory((TreeTableColumn.CellDataFeatures<Evaluation, String> param) ->  
                 new SimpleStringProperty(param.getValue().getValue().getComment_eval()));
         
         JFXTreeTableColumn<Evaluation,String> Nom = new JFXTreeTableColumn<>("User");
-        Nom.setPrefWidth(90);
+        Nom.setPrefWidth(100);
         Nom.setCellValueFactory((TreeTableColumn.CellDataFeatures<Evaluation, String> param) -> {
             User u = new User();
             UserService us = new UserService(u);
@@ -493,7 +452,7 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
                 u = us.selectUser(param.getValue().getValue().getId_user());
                 
             } catch (SQLException ex) {
-                Logger.getLogger(BonPlanDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EventDetailsController.class.getName()).log(Level.SEVERE, null, ex);
             }
             return new SimpleStringProperty(u.getUsername());
         });
@@ -505,14 +464,14 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
        
         //ObservableList<entite.BonPlan> bonPlans = FXCollections.observableArrayList();  
         
-        int idbp1 = BonPlanController.getIdBP();
-        BonPlan bp1 = new BonPlan();
-        BonPlanService bps1 = new BonPlanService(bp1);
-        bp1 = bps1.selectBonPlan(idbp1);
+        int ide1 = EventController.getIdE();
+        Evenement e1 = new Evenement();
+        EvenementService es1 = new EvenementService(e1);
+        e1 = es1.selectEvenement(ide1);
         
         Evaluation eval = new Evaluation();
         service.EvaluationService evs = new EvaluationService(eval);
-        ObservableList<Evaluation> evals = (ObservableList<Evaluation>) evs.selectEvalsByIDbp(bp1.getId_bp());
+        ObservableList<Evaluation> evals = (ObservableList<Evaluation>) evs.selectEvalsByIDE(e1.getId_event());
         
         final TreeItem<Evaluation> root = new RecursiveTreeItem<>(evals,RecursiveTreeObject::getChildren);
         
@@ -523,7 +482,7 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
         private final Tooltip tooltip = new Tooltip(); 
 
         { 
-            imageView1.setFitHeight(30); 
+            imageView1.setFitHeight(20); 
             imageView1.setPreserveRatio(true); 
             imageView1.setSmooth(true); 
             tooltip.setText(null); 
@@ -549,11 +508,10 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
         
        
         
-        treeview.getColumns().clear();
+        
         treeview.getColumns().addAll(Nom,Comm,Note);
         treeview.setRoot(root);
         treeview.setShowRoot(false);
-        treeview.setFixedCellSize(90.0);
         
         search.textProperty().addListener(new ChangeListener<String>(){
              @Override
@@ -571,8 +529,9 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
         });
         
     }
+
     
-    private void hamburger()
+     private void hamburger()
     {
         try {
             AnchorPane box = FXMLLoader.load(getClass().getResource("/views/drawerContent.fxml"));
@@ -613,38 +572,81 @@ public class BonPlanDetailsController extends ListView<String> implements Initia
         }
     }
 
+    
+    
+    
+    
+    private static Font titreFont = new Font(Font.FontFamily.TIMES_ROMAN, 45, Font.BOLD);
+    private static Font dateFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.ORANGE);
+    private static Font descFont = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.ITALIC);
+    private static Font typeFont = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.NORMAL);
+    private static Font nomFont = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.NORMAL);
+    
+      public void setImg(String url) throws IOException {
+        FileInputStream input;
+        try {
+            input = new FileInputStream(url);
+            Image img_event = SwingFXUtils.toFXImage(ImageIO.read(input), null);
+            this.ImageE.setImage(img_event);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(EventDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+       
+        }
+    }
+    
+      
+      
+      
     @FXML
-    private void makeShareFB(ActionEvent event) throws SQLException, FileNotFoundException, IOException {
-        progressBar.setVisible(true);
-        int idbp0 = BonPlanController.getIdBP();
-            System.out.println("ID du bon plan"+idbp0);
-            BonPlan bp1 = new BonPlan();
-            BonPlanService bps1 = new BonPlanService(bp1);
-            bp1 = bps1.selectBonPlan(idbp0);
-            
-            fbPost = bp1.getNom_bp()+"\n"+
-                     "à "+bp1.getPrix_bp()+" DT seulement!\n"+
-                     bp1.getDesc_bp()+"\n";
-            
-            Image image1 = new Image(bp1.getImg_bp());
-            
-            
-            String chemin = bp1.getImg_bp();
-            chemin = chemin.substring(chemin.indexOf(":")+1);
-            chemin= chemin.replace("/", "\\");
-            fbImage = new FileInputStream(chemin);
-            
-            System.out.println("FB succes!");
-            
-            service.FB.publish();
-            progressBar.setVisible(false);
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Partage facebook effectué");
-            alert.setContentText("Bon plan partagé avec succès!");
+    private void savePdf(ActionEvent event) throws BadElementException, IOException {
+        try {
+            Document doc = new Document();
+            try {
+                PdfWriter.getInstance(doc, new FileOutputStream("Reservation.pdf"));
 
-            alert.showAndWait();
+            } catch (DocumentException ex) {
+                Logger.getLogger(EventDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            doc.open();
+            Paragraph p = new Paragraph();
+            Paragraph ptitre = new Paragraph("reservation".toUpperCase(), titreFont);
+            ptitre.setAlignment(Element.ALIGN_CENTER);
+            p.add(ptitre);
+            addEmptyLine(p, 1);
+            com.itextpdf.text.Image pimage = com.itextpdf.text.Image.getInstance(url);
+            pimage.setAlignment(Element.ALIGN_CENTER);
+            Paragraph predig = new Paragraph(labelNom.getText(), nomFont);
+            predig.setAlignment(Element.ALIGN_RIGHT);
+            addEmptyLine(p, 2);
+            
+            p.add(predig);
+            doc.add(p);
+            
+            Paragraph p2 = new Paragraph();
+            
+            Paragraph pdate = new Paragraph(labelType.getText(), typeFont);
+            addEmptyLine(p2, 1);
+            p2.add(pdate);
+            Paragraph pdesc = new Paragraph(labelDesc.getText(), descFont);
+            addEmptyLine(p2, 1);
+            p2.add(pdesc);
+            doc.add(p2);
+            doc.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(EventDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(EventDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
             
             
     }
 
+    
+     private static void addEmptyLine(Paragraph paragraph, int nb) {
+        for (int i = 0; i < nb; i++) {
+            paragraph.add(new Paragraph(" "));
+        }
+    }
+    
 }

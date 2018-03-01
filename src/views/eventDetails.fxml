@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
-<?import com.jfoenix.controls.JFXProgressBar?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
@@ -20,7 +19,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.Rating?>
 
-<AnchorPane id="AnchorPane" fx:id="pane1" cache="true" cacheHint="SPEED" maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@../Content/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BonPlanDetailsController">
+<AnchorPane id="AnchorPane" fx:id="pane1" cache="true" cacheHint="SPEED" maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@../Content/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EventDetailsController">
    <children>
       <JFXTreeTableView fx:id="treeview" cache="true" cacheHint="SPEED" currentItemsCount="3" layoutX="452.0" layoutY="250.0" prefHeight="181.0" prefWidth="436.0" showRoot="false" style="-fx-background-color: transparent; -fx-tree-table-color: transparent; -fx-tree-table-row-color: transparent;" stylesheets="@../Content/style_2.css" />
       <JFXButton fx:id="btnX" cache="true" cacheHint="SPEED" layoutX="856.0" layoutY="-3.0" minWidth="46.0" onAction="#close" prefHeight="32.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #00111111;" text="X" textAlignment="CENTER" textFill="WHITE">
@@ -32,7 +31,7 @@
          </font>
       </JFXButton>
       <JFXDrawer cache="true" cacheHint="SPEED" layoutX="531.0" layoutY="746.0" />
-      <ImageView fx:id="ImageBP" cache="true" cacheHint="SPEED" fitHeight="211.0" fitWidth="387.0" layoutX="30.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ImageE" cache="true" cacheHint="SPEED" fitHeight="211.0" fitWidth="387.0" layoutX="30.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <DropShadow />
          </effect>
@@ -62,7 +61,7 @@
       </JFXTextField>
       <HBox cache="true" cacheHint="SPEED" layoutX="247.0" layoutY="4.0" prefHeight="60.0" prefWidth="383.0">
          <children>
-            <JFXButton fx:id="btnAddPlan" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeAddPlan" prefHeight="60.0" prefWidth="120.0">
+            <JFXButton fx:id="btnAddEvent" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeAddEvent" prefHeight="60.0" prefWidth="120.0">
                <graphic>
                   <HBox alignment="CENTER" prefHeight="52.0" prefWidth="92.0">
                      <children>
@@ -71,7 +70,7 @@
                               <DropShadow />
                            </effect>
                         </FontAwesomeIconView>
-                        <Label prefHeight="54.0" prefWidth="48.0" text="Ajouter&#10;bon plan" textFill="WHITE">
+                        <Label prefHeight="54.0" prefWidth="48.0" text="Ajouter&#10;événement" textFill="WHITE">
                            <font>
                               <Font name="Roboto Bold" size="12.0" />
                            </font>
@@ -83,7 +82,7 @@
                   </HBox>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnShowPlans" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeShowPlans" prefHeight="60.0" prefWidth="124.0">
+            <JFXButton fx:id="btnShowEvents" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeShowEvents" prefHeight="60.0" prefWidth="124.0">
                <graphic>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -92,7 +91,7 @@
                               <DropShadow />
                            </effect>
                         </FontAwesomeIconView>
-                        <Label text="Afficher&#10;bons plans" textFill="WHITE">
+                        <Label text="Afficher&#10;événéments" textFill="WHITE">
                            <font>
                               <Font name="Roboto Bold" size="12.0" />
                            </font>
@@ -104,7 +103,7 @@
                   </HBox>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnMesPlans" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeMesPlans" prefHeight="60.0" prefWidth="125.0">
+            <JFXButton fx:id="btnMyEvents" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeMyEvents" prefHeight="60.0" prefWidth="125.0">
                <graphic>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -113,7 +112,7 @@
                               <DropShadow />
                            </effect>
                         </FontAwesomeIconView>
-                        <Label alignment="CENTER" text="Mes&#10;bons plans" textFill="WHITE">
+                        <Label alignment="CENTER" text="Mes&#10;événements" textFill="WHITE">
                            <font>
                               <Font name="Roboto Bold" size="12.0" />
                            </font>
@@ -135,59 +134,23 @@
       </JFXHamburger>
       <VBox cache="true" cacheHint="SPEED" layoutX="447.0" layoutY="121.0" prefHeight="158.0" prefWidth="435.0">
          <children>
-            <HBox prefHeight="15.0" prefWidth="435.0">
+            <HBox prefHeight="11.0" prefWidth="435.0">
                <children>
-                  <ImageView fx:id="imgOwner" fitHeight="53.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="labelUser1" prefHeight="50.0" prefWidth="264.0" text="par">
+                  <ImageView fx:id="imgOwner" fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labelUser1" prefHeight="57.0" prefWidth="155.0" text="par">
                      <font>
                         <Font name="Roboto Bold" size="14.0" />
                      </font>
                   </Label>
-                  <VBox prefHeight="53.0" prefWidth="142.0">
-                     <children>
-                        <JFXButton fx:id="login1" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#makeShareFB" prefHeight="41.0" prefWidth="108.0" ripplerFill="WHITE" style="-fx-background-color: #3b5998;" text="Partager" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="Roboto Bold" size="18.0" />
-                           </font>
-                           <effect>
-                              <Glow />
-                           </effect>
-                           <graphic>
-                              <HBox prefHeight="35.0" prefWidth="275.0">
-                                 <children>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="FACEBOOK_OFFICIAL" size="25" wrappingWidth="27.666656494140625" />
-                                    <Label prefHeight="35.0" prefWidth="208.0" text="Partager" textFill="WHITE">
-                                       <font>
-                                          <Font name="Roboto Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                           </graphic>
-                        </JFXButton>
-                        <JFXProgressBar fx:id="progressBar" prefHeight="9.0" prefWidth="108.0" style="-fx-background-color: #3b5998;" visible="false" />
-                     </children>
-                  </VBox>
                </children>
             </HBox>
-            <Label fx:id="labelNom" prefHeight="26.0" prefWidth="433.0" text="nomBP">
+            <Label fx:id="labelNom" prefHeight="26.0" prefWidth="433.0" text="nomE">
                <font>
                   <Font name="Roboto Bold" size="18.0" />
                </font>
             </Label>
             <HBox prefHeight="20.0" prefWidth="435.0">
-               <children>
-                  <Label prefHeight="31.0" prefWidth="37.0" text="Prix:">
-                     <font>
-                        <Font name="Roboto Regular" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="labelPrix" prefHeight="28.0" prefWidth="145.0">
-                     <font>
-                        <Font name="Roboto Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
+               
             </HBox>
             <Text fx:id="labelDesc" strokeType="OUTSIDE" strokeWidth="0.0" text="description" wrappingWidth="434.00006733834743">
                <font>
@@ -196,5 +159,6 @@
             </Text>
          </children>
       </VBox>
+      <JFXButton fx:id="btn_res" buttonType="RAISED" layoutX="811.0" layoutY="431.0" onAction="#savePdf" text="Reserver" />
    </children>
 </AnchorPane>

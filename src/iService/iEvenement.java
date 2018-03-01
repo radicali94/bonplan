@@ -6,6 +6,7 @@
 package iService;
 
 import entite.Evenement;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -17,7 +18,9 @@ public interface iEvenement {
     
     public void ajouterEvenement(Evenement e);
     public void supprimerEvenement(Evenement e);
-    public List<Evenement>selectEvenements();
+    public List<Evenement> selectEvenements();
+    public List<Evenement> selectEvenementsByID(int idu);
+    public Evenement selectEvenement(int id_e)throws SQLException;
     public void modifierEvenement(Evenement e,int id_e);
     
 }
